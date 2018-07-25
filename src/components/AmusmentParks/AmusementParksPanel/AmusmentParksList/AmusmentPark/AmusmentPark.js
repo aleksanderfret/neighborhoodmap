@@ -3,7 +3,7 @@ import React from 'react';
 const AmusmentPark = (props) => {
   return (
     <li
-      className='AmusmentPark'
+      className='amusement-park'
       key={props.id}>
       <button
         data-park = {props.id}

@@ -3,7 +3,7 @@ import AmusmentPark from './AmusmentPark/AmusmentPark';
 
 const AmusmentParksList = (props) => {
   return (
-    <ul className='AmusmentParksList'>
+    <ul className='amusement-parks-list'>
       {props.parks.map((park, index) => (
         <AmusmentPark
           key={index}

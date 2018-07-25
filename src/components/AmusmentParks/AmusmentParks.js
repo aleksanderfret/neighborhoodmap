@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AmusmentParksList from './AmusmentParksList/AmusmentParksList';
+import AmusmentParksPanel from './AmusementParksPanel/AmusementParksPanel';
 import AmusmentParksMap from './AmusementParksMap/AmusmentParksMap';
 
 class AmusmentParks extends Component {
@@ -32,7 +32,7 @@ class AmusmentParks extends Component {
   render() {
     return (
       <React.Fragment>
-        <AmusmentParksList
+        <AmusmentParksPanel
           parks = {this.state.parks}/>
         <AmusmentParksMap
           parks = {this.state.parks}/>
