@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Park = (props) => {
+const AmusmentPark = (props) => {
   return (
     <li
-      className='Park'
+      className='AmusmentPark'
       key={props.id}>
       <button
         data-park = {props.id}
@@ -13,4 +13,4 @@ const Park = (props) => {
   );
 }
 
-export default Park;
+export default AmusmentPark;
