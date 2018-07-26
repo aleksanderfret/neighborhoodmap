@@ -18,6 +18,10 @@ class CustomGoogleMap extends Component {
         defaultZoom={this.props.zoom}
         defaultCenter={this.props.center}
         onTilesLoaded={this.onTilesLoaded}
+        defaultOptions={{
+          gestureHandling: this.props.gestureHandling,
+          mapTypeControl: false
+        }}
       >
         {this.props.isMarkerShown && this.props.markers.length > 0 &&
           this.props.markers.map((marker) => {
@@ -35,6 +39,6 @@ class CustomGoogleMap extends Component {
   }
 }
 
-const GoogleMapForAmusementParks = withScriptjs(withGoogleMap(CustomGoogleMap));
+const GoogleMapForParks = withScriptjs(withGoogleMap(CustomGoogleMap));
 
-export default GoogleMapForAmusementParks;
+export default GoogleMapForParks;

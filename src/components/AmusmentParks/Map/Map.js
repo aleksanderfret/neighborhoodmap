@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import GoogleMapForAmusementParks from './GoogleMapForAmusementParks/GoogleMapForAmusementParks';
+import GoogleMapForParks from './GoogleMapForParks/GoogleMapForParks';
 
-class AmusmentParksMap extends Component {
+class Map extends Component {
 
   mapMounted = ((ref) => {
     this.map = ref;
@@ -17,8 +17,8 @@ class AmusmentParksMap extends Component {
 
   render() {
     return (
-      <div id="map">
-        <GoogleMapForAmusementParks
+      <div id="map" className='map'>
+        <GoogleMapForParks
           isMarkerShown
           googleMapURL="https://maps.googleapis.com/maps/api/js?v=3&libraries=geometry,places&key=AIzaSyDRYJI7iuE8nySIexxrjMfquYL-pPyLHW8"
           loadingElement={<div style={{ height: `100%` }} />}
@@ -29,10 +29,11 @@ class AmusmentParksMap extends Component {
           center={{ lat: 0.0, lng: 10.0 }}
           mapMounted={this.mapMounted}
           onMapReady={this.adjustMapToParks}
+          gestureHandling='greedy'
         />
       </div>
     );
   }
 }
 
-export default AmusmentParksMap;
+export default Map;

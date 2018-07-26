@@ -4,22 +4,30 @@ body {
   font-family: sans-serif;
 }
 
-.app {
+.app, main {
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
+  flex-direction: row;
 }
 
 .header {
+  width: 100%;
   height: 50px;
   padding: 0;
   margin: 0;
 }
 
-.amusment-parks-list {
+.panel {
+  width: 15%;
 }
 
-.amusment-parks-map {
-  width: 100%;
+.parks-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.map {
+  width: 85%;
   height: calc(100% - 50px);
 }

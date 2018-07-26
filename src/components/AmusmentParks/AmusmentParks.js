@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import AmusmentParksPanel from './AmusementParksPanel/AmusementParksPanel';
-import AmusmentParksMap from './AmusementParksMap/AmusmentParksMap';
+import Panel from './Panel/Panel';
+import Map from './Map/Map';
 
 class AmusmentParks extends Component {
   state = {
@@ -32,9 +32,9 @@ class AmusmentParks extends Component {
   render() {
     return (
       <React.Fragment>
-        <AmusmentParksPanel
+        <Panel
           parks = {this.state.parks}/>
-        <AmusmentParksMap
+        <Map
           parks = {this.state.parks}/>
       </React.Fragment>
     );
