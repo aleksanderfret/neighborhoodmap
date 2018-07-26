@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Panel from './Panel/Panel';
-import Map from './Map/Map';
+import ParkMap from './ParkMap/ParkMap';
 
 class AmusmentParks extends Component {
   state = {
@@ -34,8 +34,14 @@ class AmusmentParks extends Component {
       <React.Fragment>
         <Panel
           parks = {this.state.parks}/>
-        <Map
-          parks = {this.state.parks}/>
+        <div id="map" className='map'>
+          <ParkMap
+            googleMapURL="https://maps.googleapis.com/maps/api/js?v=3&libraries=geometry,places&key=AIzaSyDRYJI7iuE8nySIexxrjMfquYL-pPyLHW8"
+            loadingElement={<div style={{ height: `100%` }} />}
+            containerElement={<div style={{ height: `100vh` }} />}
+            mapElement={<div style={{ height: `100%` }} />}
+            markers = {this.state.parks}/>
+        </div>
       </React.Fragment>
     );
   }
