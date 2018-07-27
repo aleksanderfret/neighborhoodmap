@@ -8,8 +8,6 @@ class CustomGoogleMap extends Component {
   state = {
     isOpen: false,
     activeMarker: null,
-    zoom: 12,
-    center: {lat: 0.0, lng: 10.0}
   }
   // TODO should it be in state
   isMapReady = false;
@@ -28,11 +26,7 @@ class CustomGoogleMap extends Component {
         activeMarker: marker,
       };
       if (marker) {
-        newState = {
-          ...newState,
-          zoom: 16,
-          center: marker.position
-        }
+       this.adjustMapToActiveMarker(marker);
       }
       return newState;
     });
@@ -41,6 +35,16 @@ class CustomGoogleMap extends Component {
   mapMounted = ((ref) => {
     this.map = ref;
   })
+
+  adjustMapToActiveMarker = (marker) => {
+    const bounds = {
+      south: marker.position.lat-0.001,
+      west: marker.position.lng-0.001,
+      north: marker.position.lat+0.001,
+      east: marker.position.lng+0.001
+    }
+    this.map.fitBounds(bounds);
+  }
 
   adjustMapToMarkers = () => {
     const bounds = new window.google.maps.LatLngBounds();
@@ -60,8 +64,8 @@ class CustomGoogleMap extends Component {
     return (
       <GoogleMap
         ref={this.mapMounted}
-        zoom={this.state.zoom}
-        center={this.state.center}
+        defaultZoom={12}
+        defaultCenter={{lat: 0, lng: 10}}
         onTilesLoaded={this.onTilesLoaded}
         defaultOptions={{
           gestureHandling: 'greedy',
@@ -80,6 +84,7 @@ class CustomGoogleMap extends Component {
                 title={marker.title}
                 position={marker.position}
                 icon={this.markerImage}
+                animation={this.state.activeMarker === marker ? window.google.maps.Animation.BOUNCE : null}
                 onClick={() => {this.setActiveMarker(marker)}}
               >
                 {this.state.activeMarker === marker && <ParkInfoWindow
