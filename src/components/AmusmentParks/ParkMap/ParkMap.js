@@ -21,34 +21,34 @@ class CustomGoogleMap extends Component {
     this.map = ref;
   });
 
-  adjustMapToActiveMarker = () => {
-    const marker = this.props.activeMarker;
+  adjustMapToActivePark = () => {
+    const park = this.props.activePark;
     const bounds = {
-      south: marker.position.lat-0.001,
-      west: marker.position.lng-0.001,
-      north: marker.position.lat+0.001,
-      east: marker.position.lng+0.001
+      south: park.position.lat-0.001,
+      west: park.position.lng-0.001,
+      north: park.position.lat+0.001,
+      east: park.position.lng+0.001
     }
     this.map.fitBounds(bounds);
   };
 
-  adjustMapToMarkers = () => {
+  adjustMapToParks = () => {
     const bounds = new window.google.maps.LatLngBounds();
-    this.props.markers.forEach((marker) => {
-      bounds.extend(marker.position);
+    this.props.parks.forEach((park) => {
+      bounds.extend(park.position);
     });
     this.map.fitBounds(bounds);
   };
 
   onTilesLoaded = () => {
     if (this.isMapReady) return;
-    this.adjustMapToMarkers();
+    this.adjustMapToParks();
     this.isMapReady = true;
   };
 
   componentDidUpdate(prevProps) {
-    if (this.props.activeMarker && this.props.activeMarker !== prevProps.activeMarker) {
-      this.adjustMapToActiveMarker();
+    if (this.props.activePark && this.props.activePark !== prevProps.activePark) {
+      this.adjustMapToActivePark();
     }
   }
 
@@ -64,24 +64,24 @@ class CustomGoogleMap extends Component {
           mapTypeControl: false
         }}
       >
-        { this.props.markers.length > 0 &&
+        { this.props.parks.length > 0 &&
           <MarkerClusterer
             averageCenter
             enableRetinaIcons
             gridSize={40}
           >
-            {this.props.markers.map(marker =>
+            {this.props.parks.map(park =>
               <Marker
-                key={marker.title}
-                title={marker.title}
-                position={marker.position}
+                key={park.title}
+                title={park.title}
+                position={park.position}
                 icon={this.markerImage}
-                animation={this.props.activeMarker === marker ? window.google.maps.Animation.BOUNCE : null}
-                onClick={() => {this.props.setActiveMarker(marker)}}
+                animation={this.props.activePark === park ? window.google.maps.Animation.BOUNCE : null}
+                onClick={() => {this.props.setActivePark(park)}}
               >
-                {this.props.activeMarker === marker && <ParkInfoWindow
-                  onCloseClick={() => {this.props.setActiveMarker(null)}}
-                  title={marker.title}
+                {this.props.activePark === park && <ParkInfoWindow
+                  onCloseClick={() => {this.props.setActivePark(null)}}
+                  title={park.title}
                 />
                 }
               </Marker>
@@ -94,11 +94,11 @@ class CustomGoogleMap extends Component {
 }
 
 const mapStateToProps =  (state) => ({
-  activeMarker: state.activePark,
+  activePark: state.activePark,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setActiveMarker: (activeMarker) => {dispatch({type: 'SET_ACTIVE_PARK', activePark: activeMarker})},
+  setActivePark: (activePark) => {dispatch({type: 'SET_ACTIVE_PARK', activePark: activePark})},
 });
 
 const ParkMap = withScriptjs(withGoogleMap(connect(mapStateToProps, mapDispatchToProps)(CustomGoogleMap)));
