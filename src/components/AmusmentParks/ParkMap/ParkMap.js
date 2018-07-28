@@ -82,6 +82,7 @@ class CustomGoogleMap extends Component {
                 {this.props.activePark === park && <ParkInfoWindow
                   onCloseClick={() => {this.props.setActivePark(null)}}
                   title={park.title}
+                  park={park}
                 />
                 }
               </Marker>
