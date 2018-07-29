@@ -17,8 +17,7 @@ export const getParkData = (park) => {
       allData = {...result};
       return Promise.all([
         getParkDetails(result.id),
-        getParkHours(result.id),
-        getParkPhotos(result.id)
+       // getParkPhotos(result.id)
       ])
     })
     .then((results) => {
@@ -28,7 +27,7 @@ export const getParkData = (park) => {
       return allData;
     })
     .catch(() => {
-      //return allData;
+      // TODO return allData;
       return dataMockup[park.id-1];
     })
   }
@@ -55,18 +54,6 @@ const getParkDetails = (id) => {
     });
 }
 
-const getParkHours = (id) => {
-  return fetch(`${api.foursquare.link}/${id}/hours?${api.foursquare.auth}`)
-    .then((response) => {
-      if (response.status === 200 ) {
-        return response.json();
-      }
-    })
-    .then((data) => {
-      return data.response.hours;
-    });
-}
-
 const getParkPhotos = (id) => {
   return fetch(`${api.foursquare.link}/${id}/photos?${api.foursquare.auth}`)
     .then((response) => {
@@ -78,8 +65,3 @@ const getParkPhotos = (id) => {
       return data.response;
     });
 }
-
-// export const getAll = () =>
-//   fetch(`${api}/books`, { headers })
-//     .then(res => res.json())
-//     .then(data => data.books)
