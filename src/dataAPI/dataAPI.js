@@ -1,7 +1,5 @@
-// const headers = {
-//   'Accept': 'application/json',
-//   'Authorization': token
-// }
+import { dataMockup } from './dataCache';
+
 const api = {
   foursquare: {
     clientId: 'LMHT2TASHWL5RRAUWHBTIOMB2NE51NNQARPY2VLZ2B1L54HD',
@@ -18,9 +16,9 @@ export const getParkData = (park) => {
     .then((result) => {
       allData = {...result};
       return Promise.all([
-        //getParkDetails(result.id),
-        //getParkHours(result.id),
-        //getParkPhotos(result.id)
+        getParkDetails(result.id),
+        getParkHours(result.id),
+        getParkPhotos(result.id)
       ])
     })
     .then((results) => {
@@ -29,10 +27,14 @@ export const getParkData = (park) => {
       });
       return allData;
     })
-}
+    .catch(() => {
+      //return allData;
+      return dataMockup[park.id-1];
+    })
+  }
 
 const getPark = (park) => {
-  return fetch(`${api.foursquare.link}/search?ll=${park.position.lat},${park.position.lng}&query=${park.title}${api.foursquare.auth}&limit=1`)
+  return fetch(`${api.foursquare.link}/search?ll=${park.position.lat},${park.position.lng}&query=${park.query}${api.foursquare.auth}&limit=1`)
     .then((response) => {
       if (response.status === 200 ) {
         return response.json();

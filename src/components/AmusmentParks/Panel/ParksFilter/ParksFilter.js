@@ -8,22 +8,22 @@ class ParksFilter extends Component {
     query: ''
   }
   parks = [
-    {title: 'Legoland Windsor', position: {lat: 51.4638338, lng: -0.6500275}},
-    {title: 'Legoland', position: {lat: 55.73551089999999, lng: 9.1268046}},
-    {title: 'Legoland Deutschland', position: {lat: 48.4246949, lng: 10.2997017}},
-    {title: 'Legoland Malaysia', position: {lat: 1.4273918, lng: 103.630269}},
-    {title: 'Disneyland Park', position: {lat: 33.8120918, lng: -117.9189742}},
-    {title: 'Tokyo Disneyland', position: {lat: 35.6328964, lng: 139.8803943}},
-    {title: 'Magic Kingdom', position: {lat: 28.417663, lng: -81.58121199999999}},
-    {title: 'Disneyland Park Paris', position: {lat: 48.8722344, lng: 2.7758079}},
-    {title: 'Universal Studios Florida', position: {lat: 28.472596, lng: -81.46656399999999}},
-    {title: 'Universal Studios Japan', position: {lat: 34.665442, lng: 135.4323382}},
-    {title: 'Universal Studios Hollywood', position: {lat: 34.13811680000001, lng: -118.3533783}},
-    {title: 'Universals Islands of Adventure', position: {lat: 28.4711402, lng: -81.47156509999999}},
-    {title: 'Beto Carrero World', position: {lat: -26.799434, lng: -48.613503}},
-    {title: 'Europa Park', position: {lat: 48.2660194, lng: 7.7220076}},
-    {title: 'Port Aventura', position: {lat: 41.08782859999999, lng: 1.1572475}},
-    {title: 'Tivoli Gardens', position: {lat: 55.6736841, lng: 12.5681471}},
+    {id: 1, title: 'Legoland Windsor', query: 'legoland', position: {lat: 51.4638338, lng: -0.6500275}},
+    {id: 2, title: 'Legoland', query: 'legoland', position: {lat: 55.73551089999999, lng: 9.1268046}},
+    {id: 3, title: 'Legoland Deutschland', query: 'legoland', position: {lat: 48.4246949, lng: 10.2997017}},
+    {id: 4, title: 'Legoland Malaysia', query: 'legoland theme park', position: {lat: 1.4273918, lng: 103.630269}},
+    {id: 5, title: 'Disneyland Park', query: 'Disneyland Park', position: {lat: 33.8120918, lng: -117.9189742}},
+    {id: 6, title: 'Tokyo Disneyland', query: 'Tokyo Disneyland', position: {lat: 35.6328964, lng: 139.8803943}},
+    {id: 7, title: 'Disney Magic Kingdom', query: 'Magic Kingdom', position: {lat: 28.417663, lng: -81.58121199999999}},
+    {id: 8, title: 'Disneyland Park Paris', query: 'Disneyland Paris', position: {lat: 48.8722344, lng: 2.7758079}},
+    {id: 9, title: 'Universal Studios Florida', query: 'Universal Studios Florida', position: {lat: 28.472596, lng: -81.46656399999999}},
+    {id: 10, title: 'Universal Studios Japan', query: 'Universal Studios Japan', position: {lat: 34.665442, lng: 135.4323382}},
+    {id: 11, title: 'Universal Studios Hollywood', query: 'Universal Studios Hollywood', position: {lat: 34.13811680000001, lng: -118.3533783}},
+    {id: 12, title: 'Universals Islands of Adventure', query: 'Universals Islands of Adventure', position: {lat: 28.4711402, lng: -81.47156509999999}},
+    {id: 13, title: 'Beto Carrero World', query: 'Beto Carrero World', position: {lat: -26.799434, lng: -48.613503}},
+    {id: 14, title: 'Europa Park', query: 'Europa Park', position: {lat: 48.2660194, lng: 7.7220076}},
+    {id: 15, title: 'Port Aventura', query: 'Costa Caribe Aquatic Park - Port Aventura', position: {lat: 41.08782859999999, lng: 1.1572475}},
+    {id: 16, title: 'Tivoli Gardens', query: 'Tivoli Gardens', position: {lat: 55.6736841, lng: 12.5681471}},
   ]
 
   componentDidMount = () => {
@@ -38,7 +38,6 @@ class ParksFilter extends Component {
     } else {
       visibleParks = this.parks;
     }
-    console.log(visibleParks);
     this.props.setVisibleParks(visibleParks);
   }
 
