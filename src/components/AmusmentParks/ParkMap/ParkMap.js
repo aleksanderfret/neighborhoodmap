@@ -34,7 +34,7 @@ class CustomGoogleMap extends Component {
 
   adjustMapToParks = () => {
     const bounds = new window.google.maps.LatLngBounds();
-    this.props.parks.forEach((park) => {
+    this.props.visibleParks.forEach((park) => {
       bounds.extend(park.position);
     });
     this.map.fitBounds(bounds);
@@ -64,13 +64,13 @@ class CustomGoogleMap extends Component {
           mapTypeControl: false
         }}
       >
-        { this.props.parks.length > 0 &&
+        { this.props.visibleParks.length > 0 &&
           <MarkerClusterer
             averageCenter
             enableRetinaIcons
             gridSize={40}
           >
-            {this.props.parks.map(park =>
+            {this.props.visibleParks.map(park =>
               <Marker
                 key={park.title}
                 title={park.title}
@@ -96,6 +96,7 @@ class CustomGoogleMap extends Component {
 
 const mapStateToProps =  (state) => ({
   activePark: state.activePark,
+  visibleParks: state.visibleParks,
 });
 
 const mapDispatchToProps = (dispatch) => ({
