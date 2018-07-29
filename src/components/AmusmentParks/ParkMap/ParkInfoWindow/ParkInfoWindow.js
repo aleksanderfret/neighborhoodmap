@@ -7,16 +7,15 @@ class ParkInfoWindow extends Component {
   parkData = {};
 
   componentDidMount = () => {
-    ParksAPI.getParkData(this.props.park)
-      .then((park) => {
-        console.log(park);
-        this.parkData = park;
-      });
-  }
+  //   ParksAPI.getParkData(this.props.park)
+  //     .then((park) => {
+  //       console.log(park);
+  //       this.parkData = park;
+  //     });
+   }
 
 
   render () {
-    //console.log(this.parkData);
     return(
       <InfoWindow
         onCloseClick={this.props.onCloseClick}

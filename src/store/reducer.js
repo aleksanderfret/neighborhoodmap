@@ -1,6 +1,6 @@
 const initialState = {
   activePark: null,
-  parks: [],
+  visibleParks: [],
 }
 
 const reducer = (state = initialState, action) => {
@@ -10,6 +10,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         activePark: action.activePark,
       }
+    case 'SET_VISIBLE_PARKS':
+      return {
+        ...state,
+        visibleParks: action.visibleParks,
+    }
     default:
       return state;
   }
