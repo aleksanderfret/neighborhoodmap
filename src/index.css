@@ -39,3 +39,9 @@ body {
 
 .park-active button{
 }
+
+.map-controls {
+  position: relative;
+  top: 0px;
+  left: 0px;
+}

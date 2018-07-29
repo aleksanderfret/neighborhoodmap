@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 import { MarkerClusterer } from 'react-google-maps/lib/components/addons/MarkerClusterer';
 import ParkInfoWindow from './ParkInfoWindow/ParkInfoWindow';
-import { connect } from 'react-redux';
+import ParkMapControls from './ParkMapControls/ParkMapControls';
 
 class CustomGoogleMap extends Component {
 
@@ -54,42 +55,69 @@ class CustomGoogleMap extends Component {
 
   render() {
     return (
-      <GoogleMap
-        ref={this.mapMounted}
-        defaultZoom={12}
-        defaultCenter={{lat: 0, lng: 10}}
-        onTilesLoaded={this.onTilesLoaded}
-        defaultOptions={{
-          gestureHandling: 'greedy',
-          mapTypeControl: false
-        }}
-      >
-        { this.props.visibleParks.length > 0 &&
-          <MarkerClusterer
-            averageCenter
-            enableRetinaIcons
-            gridSize={40}
-          >
-            {this.props.visibleParks.map(park =>
-              <Marker
-                key={park.title}
-                title={park.title}
-                position={park.position}
-                icon={this.markerImage}
-                animation={this.props.activePark === park ? window.google.maps.Animation.BOUNCE : null}
-                onClick={() => {this.props.setActivePark(park)}}
-              >
-                {this.props.activePark === park && <ParkInfoWindow
-                  onCloseClick={() => {this.props.setActivePark(null)}}
+      <React.Fragment>
+        <GoogleMap
+          ref={this.mapMounted}
+          defaultZoom={12}
+          defaultCenter={{lat: 0, lng: 10}}
+          onTilesLoaded={this.onTilesLoaded}
+          defaultOptions={{
+            gestureHandling: 'greedy',
+            mapTypeControl: false,
+            // controls: {
+            //   [window.google.maps.ControlPosition.TOP_LEFT]: ['<div>Halo</div>']
+            // }
+          }}
+        >
+          { this.props.visibleParks.length > 0 &&
+            <MarkerClusterer
+              averageCenter
+              enableRetinaIcons
+              gridSize={40}
+            >
+              {this.props.visibleParks.map(park =>
+                <Marker
+                  key={park.title}
                   title={park.title}
-                  park={park}
-                />
-                }
-              </Marker>
-            )}
-          </MarkerClusterer>
-        }
-      </GoogleMap>
+                  position={park.position}
+                  icon={this.markerImage}
+                  animation={this.props.activePark === park ? window.google.maps.Animation.BOUNCE : null}
+                  onClick={() => {this.props.setActivePark(park)}}
+                >
+                  {this.props.activePark === park && <ParkInfoWindow
+                    onCloseClick={() => {this.props.setActivePark(null)}}
+                    title={park.title}
+                    park={park}
+                  />
+                  }
+                </Marker>
+              )}
+            </MarkerClusterer>
+          }
+        <ParkMapControls
+          position={window.google.maps.ControlPosition.TOP_LEFT}
+          // viewActivePark={()=>{this.adjustMapToActivePark(this.props.activePark)}}
+          // viewVisibleParks={()=>{this.adjustMapToParks(this.props.visibleParks)}}
+          // isNotActivePark={!this.props.activePark ? true : false}
+          // isNotVisibleParks={this.props.visibleParks.length === 0 ? true : false}
+        >
+          <div className='map-controls'>
+            <button
+              type='button'
+              onClick={()=>{this.adjustMapToParks(this.props.visibleParks)}}
+              disabled={!this.props.visibleParks.length}
+            >Zoom to parks
+            </button>
+            <button
+              type='button'
+              onClick={()=>{this.adjustMapToActivePark(this.props.activePark)}}
+              disabled={!this.props.activePark}
+            >Zoom to active park
+            </button>
+          </div>
+        </ParkMapControls>
+        </GoogleMap>
+      </React.Fragment>
     )
   }
 }
