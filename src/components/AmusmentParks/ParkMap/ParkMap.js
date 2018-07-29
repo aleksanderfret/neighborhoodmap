@@ -64,9 +64,6 @@ class CustomGoogleMap extends Component {
           defaultOptions={{
             gestureHandling: 'greedy',
             mapTypeControl: false,
-            // controls: {
-            //   [window.google.maps.ControlPosition.TOP_LEFT]: ['<div>Halo</div>']
-            // }
           }}
         >
           { this.props.visibleParks.length > 0 &&
@@ -96,10 +93,6 @@ class CustomGoogleMap extends Component {
           }
         <ParkMapControls
           position={window.google.maps.ControlPosition.TOP_LEFT}
-          // viewActivePark={()=>{this.adjustMapToActivePark(this.props.activePark)}}
-          // viewVisibleParks={()=>{this.adjustMapToParks(this.props.visibleParks)}}
-          // isNotActivePark={!this.props.activePark ? true : false}
-          // isNotVisibleParks={this.props.visibleParks.length === 0 ? true : false}
         >
           <div className='map-controls'>
             <button
