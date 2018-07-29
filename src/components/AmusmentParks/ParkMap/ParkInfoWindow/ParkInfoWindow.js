@@ -22,11 +22,11 @@ class ParkInfoWindow extends Component {
       >
         <div className='info-window'>
           <h2>{this.props.park.title}</h2>
-          <div id='streetview'>
+          {/* <div id='streetview'>
             <ParkStreetView
               position={this.props.park.position}
             />
-          </div>
+          </div> */}
         </div>
     </InfoWindow>
     );

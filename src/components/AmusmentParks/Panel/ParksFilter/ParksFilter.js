@@ -4,6 +4,9 @@ import escapeRegExp from 'escape-string-regexp';
 import debounce from 'lodash.debounce';
 
 class ParksFilter extends Component {
+  state = {
+    query: ''
+  }
   parks = [
     {title: 'Legoland Windsor', position: {lat: 51.4638338, lng: -0.6500275}},
     {title: 'Legoland', position: {lat: 55.73551089999999, lng: 9.1268046}},
@@ -43,7 +46,16 @@ class ParksFilter extends Component {
 
 
   filterParksInputHandler = (event) => {
-    this.filterParksDebounced(event.target.value);
+    const newQuery = event.target.value;
+    this.setState(() => ({ query: newQuery }));
+    this.filterParksDebounced(newQuery);
+  }
+
+  resetFilter = () => {
+    this.setState(() => {
+      this.filterParks('');
+      return {query: ''};
+    });
   }
 
   componentWillUnmount = () => {
@@ -52,13 +64,21 @@ class ParksFilter extends Component {
 
   render() {
     return (
-      <input
-        className='filter-parks'
-        placeholder='Filter parks'
-        type='text'
-        name='filter'
-        onChange={this.filterParksInputHandler}
-      />
+      <React.Fragment>
+        <input
+          className='filter-parks'
+          placeholder='Filter parks'
+          type='text'
+          name='filter'
+          value={this.state.query}
+          onChange={this.filterParksInputHandler}
+        />
+        <button
+          onClick={this.resetFilter}
+          title='reset filter'
+        >X
+        </button>
+      </React.Fragment>
     );
   }
 }
