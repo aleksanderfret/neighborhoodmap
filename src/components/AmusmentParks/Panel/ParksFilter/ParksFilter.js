@@ -39,6 +39,15 @@ class ParksFilter extends Component {
       visibleParks = this.parks;
     }
     this.props.setVisibleParks(visibleParks);
+
+    if (this.props.activePark){
+      const activeParkFounded = visibleParks.find((park) => {
+        return park.id === this.props.activePark.id;
+      });
+      if (!activeParkFounded) {
+        this.props.setActivePark(null);
+      }
+    }
   }
 
   filterParksDebounced = debounce(this.filterParks, 500);
@@ -83,10 +92,12 @@ class ParksFilter extends Component {
 }
 
 const mapStateToProps =  (state) => ({
+  activePark: state.activePark,
   visibleParks: state.visibleParks,
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  setActivePark: (activePark) => {dispatch({type: 'SET_ACTIVE_PARK', activePark: activePark})},
   setVisibleParks: (visibleParks) => {dispatch({type: 'SET_VISIBLE_PARKS', visibleParks})},
 });
 
