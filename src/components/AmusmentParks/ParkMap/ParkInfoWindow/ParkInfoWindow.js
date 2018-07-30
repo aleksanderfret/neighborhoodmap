@@ -5,13 +5,20 @@ import * as ParksAPI from '../../../../dataAPI/dataAPI';
 import get from 'lodash/get';
 
 class ParkInfoWindow extends Component {
+  // Simple cache mechanism because of small daily API calls limit
+  // Except of this is preserves app from proccessing the same data many times
+  static cachedParkData = [];
   parkData = {};
 
   componentDidMount = () => {
+    this.parkData = ParkInfoWindow.cachedParkData[this.props.park.id-1];
+    if (this.parkData) return;
+
     ParksAPI.getParkData(this.props.park)
       .then((park) => {
         //console.log(JSON.stringify(park));
-        this.prepareParkData(park);
+        this.parkData = this.prepareParkData(park);
+        ParkInfoWindow.cachedParkData[this.props.park.id-1] = this.parkData;
       });
   }
 
@@ -66,37 +73,39 @@ class ParkInfoWindow extends Component {
   }
 
   prepareParkData = (park) => {
-    this.parkData.name = park.name;
-    this.parkData.address = {
+    const parkData = {};
+   parkData.name = park.name;
+   parkData.address = {
       street: get(park, 'location.address'),
       city: `${get(park, 'location.postalCode')} ${get(park, 'location.city')}`,
       country: get(park, 'location.country')
     }
 
     if (park.venue) {
-      this.parkData.contact = {
+     parkData.contact = {
         phone: get(park, 'venue.contact.formattedPhone'),
         twitter: this.prepareParkContactLink('https://twitter.com/', get(park, 'venue.contact.twitter')),
         instagram: this.prepareParkContactLink('https://www.instagram.com/', get(park, 'venue.contact.instagram')),
         facebookUsername: this.prepareParkContactLink('https://www.facebook.com/', get(park, 'venue.contact.facebookUsername')),
       }
-      this.parkData.seeMore = {
+     parkData.seeMore = {
         foursquare: park.venue.canonicalUrl,
         park: park.venue.url
       };
-      this.parkData.rating = {
+     parkData.rating = {
         value: park.venue.rating,
         color: '#'+park.venue.ratingColor
       };
-      this.parkData.description = park.venue.description;
+     parkData.description = park.venue.description;
 
-      this.parkData.hours = this.prepareParkHours(get(park, 'venue.hours.timeframes'));
+     parkData.hours = this.prepareParkHours(get(park, 'venue.hours.timeframes'));
       this.bestPhotoUrl = this.prepareParkPhotoUrl(
         get(park, 'venue.bestPhoto.prefix'),
         '300x300',
         get(park, 'venue.bestPhoto.sufix')
       );
     }
+    return parkData;
   }
 
   render () {
