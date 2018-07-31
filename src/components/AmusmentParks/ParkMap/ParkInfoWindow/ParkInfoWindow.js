@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { InfoWindow } from 'react-google-maps';
-import ParkStreetView from './ParkStreetView/ParkStreetView';
 import * as ParksAPI from '../../../../dataAPI/dataAPI';
 import get from 'lodash/get';
 
@@ -157,11 +156,6 @@ class ParkInfoWindow extends Component {
             </table>
           }
           <p className='park-description'>{park.description}</p>
-          {/* <div id='streetview'>
-            <ParkStreetView
-              position={this.props.park.position}
-            />
-          </div> */}
         </div>
       </InfoWindow>
     );

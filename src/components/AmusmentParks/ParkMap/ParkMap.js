@@ -72,8 +72,9 @@ class CustomGoogleMap extends Component {
               enableRetinaIcons
               gridSize={40}
             >
-              {this.props.visibleParks.map(park =>
+              {this.props.visibleParks.map((park, index) =>
                 <Marker
+                  tabindex={index}
                   key={park.title}
                   title={park.title}
                   position={park.position}
@@ -99,13 +100,15 @@ class CustomGoogleMap extends Component {
               type='button'
               onClick={()=>{this.adjustMapToParks(this.props.visibleParks)}}
               disabled={!this.props.visibleParks.length}
-            >Zoom to parks
+            >
+              <img src='assets/icons/zoom-to-all-parks.svg' alt='Zoom to all parks' title='Zoom to all parks'/>
             </button>
             <button
               type='button'
               onClick={()=>{this.adjustMapToActivePark(this.props.activePark)}}
               disabled={!this.props.activePark}
-            >Zoom to active park
+            >
+              <img src='assets/icons/zoom-to-active-park.svg' alt='Zoom to active park' title='Zoom to active park'/>
             </button>
           </div>
         </ParkMapControls>

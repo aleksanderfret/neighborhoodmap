@@ -8,7 +8,7 @@ const ParksList = (props) => {
       {props.visibleParks.map((park, index) => (
         <li
           key={index}
-          className={'park ' + (park === props.activePark ? 'park-active' : '')}
+          className={'park ' + (park === props.activePark ? 'active' : '')}
         >
           <ParkItem
             park={park}

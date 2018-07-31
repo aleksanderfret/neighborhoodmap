@@ -1,0 +1,140 @@
+body {
+  font: normal normal 300 16px/1.2em "Ubuntu";
+  font-size: 16px;
+  font-size: 1em;
+  background-color: #006391;
+}
+
+body * {
+  font-family: inherit;
+}
+
+.app, main {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+/*********** HEADER ***********/
+.header {
+  width: 100%;
+  height: 50px;
+  padding: 0;
+  margin: 0;
+  background-color: #006391;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu-button {
+  position: absolute;
+  left: 10px;
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  color: #fff;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.menu-button:hover {
+  transform: scale(1.1);
+  text-shadow: 0px 0px 3px rgba(0, 0, 0, 0.6);
+}
+
+.menu-button:disable:hover {
+  transform: none;
+  text-shadow: none;
+  color: red;
+}
+
+/*********** PANEL ***********/
+.panel {
+  width: 300px;
+  height: calc(100% - 50px);
+  position: absolute;
+  background-color: #006391;
+  transform: translate(-300px, 0);
+  transition: transform 0.3s ease;
+  z-index: 1000;
+}
+
+.panel.open {
+  transform: translate(0, 0);
+}
+
+@media screen and (min-width: 800px) {
+  .panel {
+    position: relative;
+    width: 15%;
+    min-width: 300px;
+    transform: translate(0, 0);
+  }
+  .map {
+    width: 85%;
+    max-width: calc(100% - 300px);
+  }
+}
+
+.parks-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+
+/*********** MAP ***********/
+.map {
+  width: 100%;
+  transition: width 0.3 ease;
+}
+
+.loadingElement,
+.mapElement {
+  height: 100%;
+}
+
+.containerElement {
+  height: calc(100vh - 50px);
+}
+
+.map-controls {
+  display: flex;
+  flex-direction: column;
+}
+
+.map-controls button {
+  font-family: inherit;
+  font-size: 1rem;
+  background-color: #fff;
+  border: none;
+  width: 40px;
+  height: 40px;
+  margin: 10px 10px 0 10px;
+  padding: 5px;
+  border-radius: 2px;
+  cursor: pointer;
+  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.8);
+}
+
+.map-controls button img {
+  width: 30px;
+  height: 30px;
+}
+
+.map-controls button:disabled {
+  cursor: auto;
+  box-shadow: none;
+}
+
+.map-controls button:disabled img{
+  opacity: 0.75;
+}
