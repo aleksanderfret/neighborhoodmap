@@ -28,7 +28,7 @@ class Layout extends Component {
           >
             <i className="fas fa-bars"></i>
           </button>
-          <h1>Amusment Parks</h1>
+          <h1>Amusement Parks</h1>
         </header>
         <main>
           {this.props.children}
