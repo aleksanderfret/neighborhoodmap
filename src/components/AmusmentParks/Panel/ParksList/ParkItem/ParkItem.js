@@ -9,7 +9,7 @@ const ParkItem = (props) => {
           props.toggleSidePanel();
         }
       }}
-      className='park-button'
+      className={'park-button ' + (props.park === props.activePark ? 'active' : '')}
     >{props.park.title}
     </button>
   );

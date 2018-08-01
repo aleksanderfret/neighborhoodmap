@@ -8,12 +8,12 @@ const ParksList = (props) => {
       {props.visibleParks.map((park, index) => (
         <li
           key={index}
-          className={'park ' + (park === props.activePark ? 'active' : '')}
         >
           <ParkItem
             park={park}
             setActivePark={props.setActivePark}
             toggleSidePanel={props.toggleSidePanel}
+            activePark={props.activePark}
             isPanelVisible={props.isPanelVisibleOnMobile}
           />
         </li>

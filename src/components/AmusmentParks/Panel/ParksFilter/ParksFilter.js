@@ -77,9 +77,9 @@ class ParksFilter extends Component {
 
   render() {
     return (
-      <React.Fragment>
+      <div className='filter-parks'>
         <input
-          className='filter-parks'
+          className='filter-input'
           placeholder='Filter parks'
           type='text'
           name='filter'
@@ -89,9 +89,10 @@ class ParksFilter extends Component {
         <button
           onClick={this.resetFilter}
           title='reset filter'
-        >X
+          className='filter-reset'
+        ><i class="fas fa-times"></i>
         </button>
-      </React.Fragment>
+      </div>
     );
   }
 }
