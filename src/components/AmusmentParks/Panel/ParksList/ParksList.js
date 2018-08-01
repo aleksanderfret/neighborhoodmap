@@ -13,6 +13,8 @@ const ParksList = (props) => {
           <ParkItem
             park={park}
             setActivePark={props.setActivePark}
+            toggleSidePanel={props.toggleSidePanel}
+            isPanelVisible={props.isPanelVisibleOnMobile}
           />
         </li>
       ))}
@@ -23,10 +25,12 @@ const ParksList = (props) => {
 const mapStateToProps =  (state) => ({
   activePark: state.activePark,
   visibleParks: state.visibleParks,
+  isPanelVisibleOnMobile: state.isPanelVisibleOnMobile,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   setActivePark: (activePark) => {dispatch({type: 'SET_ACTIVE_PARK', activePark: activePark})},
+  toggleSidePanel: () => {dispatch({type: 'TOGGLE_SIDE_PANEL'})}
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ParksList);
