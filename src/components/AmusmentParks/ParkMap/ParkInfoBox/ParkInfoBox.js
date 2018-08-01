@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { InfoWindow } from 'react-google-maps';
+import { InfoBox } from 'react-google-maps/lib/components/addons/InfoBox';
 import * as ParksAPI from '../../../../dataAPI/dataAPI';
 import get from 'lodash/get';
 
-class ParkInfoWindow extends Component {
+class ParkInfoBox extends Component {
   // Simple cache mechanism because of small daily API calls limit
   // Except of this is preserves app from proccessing the same data many times
   static cachedParkData = [];
@@ -12,7 +12,7 @@ class ParkInfoWindow extends Component {
   };
 
   componentDidMount = () => {
-    const cachedData = ParkInfoWindow.cachedParkData[this.props.park.id - 1];
+    const cachedData = ParkInfoBox.cachedParkData[this.props.park.id - 1];
     if (cachedData) {
       this.setState({
         parkData: cachedData,
@@ -25,7 +25,7 @@ class ParkInfoWindow extends Component {
           this.setState({
             parkData: preparedData,
           });
-          ParkInfoWindow.cachedParkData[this.props.park.id - 1] = preparedData;
+          ParkInfoBox.cachedParkData[this.props.park.id - 1] = preparedData;
         });
     }
   }
@@ -127,7 +127,9 @@ class ParkInfoWindow extends Component {
     const park = this.state.parkData;
 
     return (
-      <InfoWindow
+      <InfoBox
+       position={this.props.park.position}
+        options={{ enableEventPropagation: true, alignBottom: true, pixelOffset: new window.google.maps.Size(-150, -60)}}
         onCloseClick={this.props.onCloseClick}
       >
         <div
@@ -165,7 +167,7 @@ class ParkInfoWindow extends Component {
                     title={`Website of ${this.props.park.title}`}
                     alt={`Website of ${this.props.park.title}`}
                   >
-                    <i class="fas fa-globe"></i>
+                    <i className="fas fa-globe"></i>
                   </a>
                 </li>
               }
@@ -176,7 +178,7 @@ class ParkInfoWindow extends Component {
                     title={`Twitter account of ${this.props.park.title}`}
                     alt={`Twitter account of ${this.props.park.title}`}
                   >
-                    <i class="fab fa-twitter-square"></i>
+                    <i className="fab fa-twitter-square"></i>
                   </a>
                 </li>
               }
@@ -187,7 +189,7 @@ class ParkInfoWindow extends Component {
                     title={`Instagram profil of ${this.props.park.title}`}
                     alt={`Instagram profil of ${this.props.park.title}`}
                   >
-                    <i class="fab fa-instagram"></i>
+                    <i className="fab fa-instagram"></i>
                   </a>
                 </li>
               }
@@ -198,7 +200,7 @@ class ParkInfoWindow extends Component {
                     title={`Facebook profil of ${this.props.park.title}`}
                     alt={`Facebook profil of ${this.props.park.title}`}
                   >
-                    <i class="fab fa-facebook-square"></i>
+                    <i className="fab fa-facebook-square"></i>
                   </a>
                 </li>
               }
@@ -236,9 +238,9 @@ class ParkInfoWindow extends Component {
             </a>
           }
         </div>
-      </InfoWindow>
+      </InfoBox>
     );
   }
 }
 
-export default ParkInfoWindow;
+export default ParkInfoBox;

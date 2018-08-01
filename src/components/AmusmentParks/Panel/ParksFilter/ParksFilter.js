@@ -89,8 +89,7 @@ class ParksFilter extends Component {
         <button
           onClick={this.resetFilter}
           title='reset filter'
-          className='filter-reset'
-        ><i class="fas fa-times"></i>
+        ><i className='fas fa-times'></i>
         </button>
       </div>
     );

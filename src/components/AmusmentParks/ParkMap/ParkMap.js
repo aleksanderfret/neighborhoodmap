@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 import { MarkerClusterer } from 'react-google-maps/lib/components/addons/MarkerClusterer';
 import ParkInfoWindow from './ParkInfoWindow/ParkInfoWindow';
+import ParkInfoBox from './ParkInfoBox/ParkInfoBox';
 import ParkMapControls from './ParkMapControls/ParkMapControls';
 
 class CustomGoogleMap extends Component {
@@ -27,7 +28,7 @@ class CustomGoogleMap extends Component {
     const bounds = {
       south: park.position.lat-0.001,
       west: park.position.lng-0.001,
-      north: park.position.lat+0.001,
+      north: park.position.lat+0.01,
       east: park.position.lng+0.001
     }
     this.map.fitBounds(bounds);
@@ -82,7 +83,13 @@ class CustomGoogleMap extends Component {
                   animation={this.props.activePark === park ? window.google.maps.Animation.BOUNCE : null}
                   onClick={() => {this.props.setActivePark(park)}}
                 >
-                  {this.props.activePark === park && <ParkInfoWindow
+                  {this.props.activePark === park &&
+                  // <ParkInfoWindow
+                  //   onCloseClick={() => {this.props.setActivePark(null)}}
+                  //   title={park.title}
+                  //   park={park}
+                  // />
+                  <ParkInfoBox
                     onCloseClick={() => {this.props.setActivePark(null)}}
                     title={park.title}
                     park={park}
