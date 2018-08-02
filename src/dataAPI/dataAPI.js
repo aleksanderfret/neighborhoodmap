@@ -53,15 +53,3 @@ const getParkDetails = (id) => {
       return data.response;
     });
 }
-
-const getParkPhotos = (id) => {
-  return fetch(`${api.foursquare.link}/${id}/photos?${api.foursquare.auth}`)
-    .then((response) => {
-      if (response.status === 200 ) {
-        return response.json();
-      }
-    })
-    .then((data) => {
-      return data.response;
-    });
-}
