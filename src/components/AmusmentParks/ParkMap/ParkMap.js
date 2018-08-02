@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 import { MarkerClusterer } from 'react-google-maps/lib/components/addons/MarkerClusterer';
-import ParkInfoWindow from './ParkInfoWindow/ParkInfoWindow';
 import ParkInfoBox from './ParkInfoBox/ParkInfoBox';
 import ParkMapControls from './ParkMapControls/ParkMapControls';
 

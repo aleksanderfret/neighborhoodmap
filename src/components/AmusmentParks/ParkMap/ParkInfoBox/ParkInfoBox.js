@@ -90,6 +90,7 @@ class ParkInfoBox extends Component {
     const parkData = {};
     parkData.name = park.name;
     parkData.address = {
+      name: park.name,
       street: get(park, 'location.address'),
       city: `${get(park, 'location.postalCode')} ${get(park, 'location.city')}`,
       country: get(park, 'location.country')
@@ -108,6 +109,7 @@ class ParkInfoBox extends Component {
         value: park.venue.rating,
         color: '#' + park.venue.ratingColor
       };
+
       parkData.description = park.venue.description;
 
       parkData.hours = this.prepareParkHours(get(park, 'venue.hours.timeframes'));
@@ -129,115 +131,149 @@ class ParkInfoBox extends Component {
     return (
       <InfoBox
        position={this.props.park.position}
-        options={{ enableEventPropagation: true, alignBottom: true, pixelOffset: new window.google.maps.Size(-150, -60)}}
+        options={{
+          boxClass:'info-box',
+          closeBoxURL: `assets/icons/close-info-box.svg`,
+          closeBoxMargin: "-15px",
+          enableEventPropagation: true,
+          alignBottom: true,
+          pixelOffset: new window.google.maps.Size(-150, -60)
+        }}
         onCloseClick={this.props.onCloseClick}
       >
+      <React.Fragment>
         <div
-          id='info-window'
-          className='info-window'
+          className='park-details-container'
         >
+        <header>
           <h2
             className='park-name'
           >
-            {park.name || this.props.park.title}
+            {this.props.park.title}
           </h2>
-          {park.bestPhotoUrl &&
-            <img
-              className='park-image'
-              src={park.bestPhotoUrl}
-              alt={`${this.props.name} theme park`}
-            />
-          }
-          {park.address &&
-            <p className='park-addres'>
-              {park.address.street}<br/>
-              {park.address.city}<br/>
-              {park.address.country}
-            </p>
-          }
-          {park.contact &&
-            <ul>
-              {park.contact.phone &&
-                <li>{`phone: ${park.contact.phone}`}</li>
-              }
-              {park.contact.website &&
-                <li>
-                  <a
-                    href={park.contact.website}
-                    title={`Website of ${this.props.park.title}`}
-                    alt={`Website of ${this.props.park.title}`}
-                  >
-                    <i className="fas fa-globe"></i>
-                  </a>
-                </li>
-              }
-              {park.contact.twitter &&
-                <li>
-                  <a
-                    href={park.contact.twitter}
-                    title={`Twitter account of ${this.props.park.title}`}
-                    alt={`Twitter account of ${this.props.park.title}`}
-                  >
-                    <i className="fab fa-twitter-square"></i>
-                  </a>
-                </li>
-              }
-              {park.contact.instagram &&
-                <li>
-                  <a
-                    href={park.contact.instagram}
-                    title={`Instagram profil of ${this.props.park.title}`}
-                    alt={`Instagram profil of ${this.props.park.title}`}
-                  >
-                    <i className="fab fa-instagram"></i>
-                  </a>
-                </li>
-              }
-              {park.contact.facebook &&
-                <li>
-                  <a
-                    href={park.contact.facebook}
-                    title={`Facebook profil of ${this.props.park.title}`}
-                    alt={`Facebook profil of ${this.props.park.title}`}
-                  >
-                    <i className="fab fa-facebook-square"></i>
-                  </a>
-                </li>
-              }
-              {park.source &&
-                <a href={park.source}></a>
-
-              }
-            </ul>
-          }
-          {park.hours &&
-            <table className='park-open-hours'>
-              <thead>
-                <tr>
-                  <th>Days</th>
-                  <th>Hours</th>
-                </tr>
-              </thead>
-              <tbody>
-                {park.hours.map((hour, index) => (
-                  <tr key={index}>
-                    <td>{hour.day}</td>
-                    <td>{hour.hours}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          }
-          <p className='park-description'>{park.description}</p>
-          {park.source &&
-            <a
-              href={park.source}
-              target="_blank"
-            >
-              Data source from Foursquare
-            </a>
-          }
+        </header>
+          <div
+            id='park-details'
+            className='park-details'
+          >
+            {park.bestPhotoUrl &&
+              <img
+                className='park-image'
+                src={park.bestPhotoUrl}
+                alt={`${this.props.name} theme park`}
+              />
+            }
+            {park.address &&
+              <React.Fragment>
+                <h3>Address</h3>
+                <p className='park-addres'>
+                  {park.address.name !== park.address.street &&
+                    <React.Fragment>
+                      {park.address.name}<br/>
+                    </React.Fragment>
+                  }
+                  {park.address.street}<br/>
+                  {park.address.city}<br/>
+                  {park.address.country}
+                </p>
+              </React.Fragment>
+            }
+            {park.contact &&
+              <React.Fragment>
+                <h3>Contact</h3>
+                <ul className='park-contact'>
+                  {park.contact.phone &&
+                    <li>{`phone: ${park.contact.phone}`}</li>
+                  }
+                  {park.contact.website &&
+                    <li>
+                      <a
+                        href={park.contact.website}
+                        title={`Website of ${this.props.park.title}`}
+                        alt={`Website of ${this.props.park.title}`}
+                      >
+                        <i className="fas fa-globe"></i>
+                      </a>
+                    </li>
+                  }
+                  {park.contact.twitter &&
+                    <li>
+                      <a
+                        href={park.contact.twitter}
+                        title={`Twitter account of ${this.props.park.title}`}
+                        alt={`Twitter account of ${this.props.park.title}`}
+                      >
+                        <i className="fab fa-twitter-square"></i>
+                      </a>
+                    </li>
+                  }
+                  {park.contact.instagram &&
+                    <li>
+                      <a
+                        href={park.contact.instagram}
+                        title={`Instagram profil of ${this.props.park.title}`}
+                        alt={`Instagram profil of ${this.props.park.title}`}
+                      >
+                        <i className="fab fa-instagram"></i>
+                      </a>
+                    </li>
+                  }
+                  {park.contact.facebook &&
+                    <li>
+                      <a
+                        href={park.contact.facebook}
+                        title={`Facebook profil of ${this.props.park.title}`}
+                        alt={`Facebook profil of ${this.props.park.title}`}
+                      >
+                        <i className="fab fa-facebook-square"></i>
+                      </a>
+                    </li>
+                  }
+                </ul>
+              </React.Fragment>
+            }
+            {park.hours &&
+              <React.Fragment>
+                <h3>Opening hours</h3>
+                <table className='park-open-hours'>
+                  <thead>
+                    <tr>
+                      <th>Days</th>
+                      <th>Hours</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {park.hours.map((hour, index) => (
+                      <tr key={index}>
+                        <td>{hour.day}</td>
+                        <td>{hour.hours}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </React.Fragment>
+            }
+            {park.description &&
+              <React.Fragment>
+                <h3>Description</h3>
+                <p className='park-description'>{park.description}</p>
+              </React.Fragment>
+            }
+            {park.source &&
+              <React.Fragment>
+                <h3>Data source</h3>
+                <a
+                  className='source-link'
+                  href={park.source}
+                  target="_blank"
+                >
+                  Foursquare
+                </a>
+              </React.Fragment>
+            }
+          </div>
         </div>
+        </React.Fragment>
       </InfoBox>
     );
   }
