@@ -135,7 +135,6 @@ class ParkInfoBox extends Component {
           boxClass:'info-box',
           closeBoxURL: `assets/icons/close-info-box.svg`,
           closeBoxMargin: "-15px",
-          enableEventPropagation: true,
           alignBottom: true,
           pixelOffset: new window.google.maps.Size(-150, -60)
         }}
