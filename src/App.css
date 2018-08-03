@@ -56,6 +56,12 @@ body * {
   color: red;
 }
 
+@media screen and (min-width: 800px) {
+  .menu-button {
+    display: none;
+  }
+}
+
 /*********** PANEL ***********/
 .panel {
   width: 300px;
@@ -65,16 +71,25 @@ body * {
   transform: translate(-300px, 0);
   transition: transform 0.3s ease;
   z-index: 1000;
-  display: none;
+  visibility: hidden;
+}
+
+.panel h2 {
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  font-size: 1.4rem;
+  margin: 10px 0;
 }
 
 .panel.open {
-  display: block;
+  visibility: visible;
   transform: translate(0, 0);
 }
 
 @media screen and (min-width: 800px) {
   .panel {
+    visibility: visible;
     position: relative;
     width: 15%;
     min-width: 300px;
@@ -293,10 +308,10 @@ body * {
   max-height: 350px;
   padding: 10px;
   border-radius: 0 0 10px 10px;
-  overflow-y: auto;
+  overflow-y: scroll;
 }
 
-.park-details h3 {
+.park-details h4 {
   font-size: 1rem;
   font-weight: 700;
   color: #006391;
@@ -343,7 +358,7 @@ body * {
   width: 25%;
 }
 
-.park-contact li:first-child {
+.park-contact li.park-phone:first-child {
   width: 100%;
 }
 
@@ -380,4 +395,3 @@ a.source-link:visited {
 a.source-link:hover {
   color: #000;
 }
-

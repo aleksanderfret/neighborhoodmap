@@ -4,10 +4,14 @@ import { connect } from 'react-redux';
 
 const ParksList = (props) => {
   return (
-    <ul className='parks-list'>
+    <ul
+      className='parks-list'
+      role='menu'
+    >
       {props.visibleParks.map((park, index) => (
         <li
           key={index}
+          role='none'
         >
           <ParkItem
             park={park}

@@ -146,11 +146,11 @@ class ParkInfoBox extends Component {
           className='park-details-container'
         >
         <header>
-          <h2
+          <h3
             className='park-name'
           >
             {this.props.park.title}
-          </h2>
+          </h3>
         </header>
           <div
             id='park-details'
@@ -165,7 +165,7 @@ class ParkInfoBox extends Component {
             }
             {park.address &&
               <React.Fragment>
-                <h3>Address</h3>
+                <h4>Address</h4>
                 <p className='park-addres'>
                   {park.address.name !== park.address.street &&
                     <React.Fragment>
@@ -180,10 +180,10 @@ class ParkInfoBox extends Component {
             }
             {park.contact &&
               <React.Fragment>
-                <h3>Contact</h3>
+                <h4>Contact</h4>
                 <ul className='park-contact'>
                   {park.contact.phone &&
-                    <li>{`phone: ${park.contact.phone}`}</li>
+                    <li className='park-phone'>{`phone: ${park.contact.phone}`}</li>
                   }
                   {park.contact.website &&
                     <li>
@@ -234,7 +234,7 @@ class ParkInfoBox extends Component {
             }
             {park.hours &&
               <React.Fragment>
-                <h3>Opening hours</h3>
+                <h4>Opening hours</h4>
                 <table className='park-open-hours'>
                   <thead>
                     <tr>
@@ -255,13 +255,13 @@ class ParkInfoBox extends Component {
             }
             {park.description &&
               <React.Fragment>
-                <h3>Description</h3>
+                <h4>Description</h4>
                 <p className='park-description'>{park.description}</p>
               </React.Fragment>
             }
             {park.source &&
               <React.Fragment>
-                <h3>Data source</h3>
+                <h4>Data source</h4>
                 <a
                   className='source-link'
                   href={park.source}

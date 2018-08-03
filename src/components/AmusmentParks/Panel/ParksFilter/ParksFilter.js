@@ -20,15 +20,6 @@ class ParksFilter extends Component {
     {id: 10, title: 'Tivoli Gardens', query: 'Tivoli Gardens', position: {lat: 55.6736841, lng: 12.5681471}},
     {id: 11, title: 'Liseberg', query: 'Liseberg', position: {lat: 57.6952191, lng: 11.9924641}},
     {id: 12, title: 'Gardaland', query: 'Gardaland', position: {lat: 45.4550142, lng: 10.7137527}},
-    // {id: 17, title: 'Legoland Malaysia', query: 'legoland theme park', position: {lat: 1.4273918, lng: 103.630269}},
-    // {id: 18, title: 'Disneyland Park', query: 'Disneyland Park', position: {lat: 33.8120918, lng: -117.9189742}},
-    // {id: 19, title: 'Tokyo Disneyland', query: 'Tokyo Disneyland', position: {lat: 35.6328964, lng: 139.8803943}},
-    // {id: 20, title: 'Disney Magic Kingdom', query: 'Magic Kingdom', position: {lat: 28.417663, lng: -81.58121199999999}},
-    // {id: 21, title: 'Universal Studios Florida', query: 'Universal Studios Florida', position: {lat: 28.472596, lng: -81.46656399999999}},
-    // {id: 22, title: 'Universal Studios Japan', query: 'Universal Studios Japan', position: {lat: 34.665442, lng: 135.4323382}},
-    // {id: 23, title: 'Universal Studios Hollywood', query: 'Universal Studios Hollywood', position: {lat: 34.13811680000001, lng: -118.3533783}},
-    // {id: 24, title: 'Universals Islands of Adventure', query: 'Universals Islands of Adventure', position: {lat: 28.4711402, lng: -81.47156509999999}},
-    // {id: 25, title: 'Beto Carrero World', query: 'Beto Carrero World', position: {lat: -26.799434, lng: -48.613503}},
   ]
 
   componentDidMount = () => {
@@ -79,17 +70,22 @@ class ParksFilter extends Component {
     return (
       <div className='filter-parks'>
         <input
+          tabIndex={-1}
+          id='filter-input'
           className='filter-input'
           placeholder='Filter parks'
           type='text'
           name='filter'
+          aria-label='filter the amusement parks'
           value={this.state.query}
           onChange={this.filterParksInputHandler}
+        //  ref={input => input && input.focus()}
         />
         <button
           className='filter-reset'
           onClick={this.resetFilter}
           title='reset filter'
+          aria-label='reset filter'
         ><i className='fas fa-times'></i>
         </button>
       </div>

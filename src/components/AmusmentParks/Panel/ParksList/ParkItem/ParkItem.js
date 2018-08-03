@@ -10,6 +10,7 @@ const ParkItem = (props) => {
         }
       }}
       className={'park-button ' + (props.park === props.activePark ? 'active' : '')}
+      role='menuitem'
     >{props.park.title}
     </button>
   );
