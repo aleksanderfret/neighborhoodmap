@@ -6,8 +6,11 @@ import ParkInfoBox from './ParkInfoBox/ParkInfoBox';
 import ParkMapControls from './ParkMapControls/ParkMapControls';
 
 class CustomGoogleMap extends Component {
+  state={
+    infoBoxAlignBottom: true,
+    offset: -60,
 
-  // TODO should it be in state
+  }
   isMapReady = false;
 
   markerImage = {
@@ -23,6 +26,7 @@ class CustomGoogleMap extends Component {
   });
 
   adjustMapToActivePark = () => {
+    this.setInfoBoxAlignemt(true);
     const park = this.props.activePark;
     const bounds = {
       south: park.position.lat-0.001,
@@ -39,12 +43,29 @@ class CustomGoogleMap extends Component {
       bounds.extend(park.position);
     });
     this.map.fitBounds(bounds);
+
+    const activePark = this.props.activePark;
+    if (activePark) {
+      const infoBoxAlignBottom = (activePark.position.lat > this.mapCenter.lat) ? false : true;
+      this.setInfoBoxAlignemt(infoBoxAlignBottom);
+    }
+  };
+
+  setInfoBoxAlignemt = (infoBoxAlignBottom) => {
+    this.setState({
+      infoBoxAlignBottom,
+      offset: (infoBoxAlignBottom) ? -60 : -10,
+    });
   };
 
   onTilesLoaded = () => {
     if (this.isMapReady) return;
     this.adjustMapToParks();
     this.isMapReady = true;
+    this.mapCenter = {
+      lat: this.map.getCenter().lat(),
+      lng: this.map.getCenter().lng(),
+    }
   };
 
   componentDidUpdate(prevProps) {
@@ -83,15 +104,13 @@ class CustomGoogleMap extends Component {
                   onClick={() => {this.props.setActivePark(park)}}
                 >
                   {this.props.activePark === park &&
-                  // <ParkInfoWindow
-                  //   onCloseClick={() => {this.props.setActivePark(null)}}
-                  //   title={park.title}
-                  //   park={park}
-                  // />
                   <ParkInfoBox
+                    alignBottom={this.state.infoBoxAlignBottom}
+                    setAlignmentOnClose={() => {this.setInfoBoxAlignemt(true)}}
                     onCloseClick={() => {this.props.setActivePark(null)}}
                     title={park.title}
                     park={park}
+                    offset={this.state.offset}
                   />
                   }
                 </Marker>

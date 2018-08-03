@@ -25,7 +25,7 @@ class Panel extends Component {
         id='panel'
         className={'panel ' + (this.props.isPanelVisibleOnMobile ? 'open' : '')}
       >
-        <h2>Amusemet parks lists</h2>
+        <h2>Amusemet parks list</h2>
         <ParksFilter/>
         <ParksList/>
       </div>

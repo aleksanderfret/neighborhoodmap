@@ -7,11 +7,14 @@ class ParkInfoBox extends Component {
   // Simple cache mechanism because of small daily API calls limit
   // Except of this is preserves app from proccessing the same data many times
   static cachedParkData = [];
+
   state = {
-    parkData: null
+    parkData: null,
+    isInfoBoxRendered: false
   };
 
   componentDidMount = () => {
+    document.addEventListener('keydown', this.onPressEscape);
     const cachedData = ParkInfoBox.cachedParkData[this.props.park.id - 1];
     if (cachedData) {
       this.setState({
@@ -28,6 +31,10 @@ class ParkInfoBox extends Component {
           ParkInfoBox.cachedParkData[this.props.park.id - 1] = preparedData;
         });
     }
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.onPressEscape);
   }
 
   prepareParkContactLink = (baseURL, identifier) => {
@@ -122,31 +129,60 @@ class ParkInfoBox extends Component {
     return parkData;
   }
 
+  // setTimeout used because of strange errors when code
+  // was run synchronously - ref.focus() didn't work then
+  onInfoBoxheaderRef = (ref) => {
+    setTimeout(()=> {
+      this.focusedBefore = document.activeElement;
+      if(ref) {
+        ref.focus();
+      }
+    }, 0);
+  }
+
+  closeInfoBox = () => {
+    this.props.onCloseClick();
+    if (this.focusedBefore) {
+      this.focusedBefore.focus();
+    }
+    this.props.setAlignmentOnClose();
+  }
+
+  onPressEscape = (event) => {
+    if(event.keyCode === 27){
+      this.closeInfoBox();
+    }
+  }
+
   render() {
     if (!this.state.parkData) {
       return null;
     }
     const park = this.state.parkData;
-
     return (
       <InfoBox
-       position={this.props.park.position}
+        position={this.props.park.position}
         options={{
           boxClass:'info-box',
           closeBoxURL: `assets/icons/close-info-box.svg`,
           closeBoxMargin: "-15px",
-          alignBottom: true,
-          pixelOffset: new window.google.maps.Size(-150, -60)
+          alignBottom: this.props.alignBottom,
+          pixelOffset: new window.google.maps.Size(-150, this.props.offset),
         }}
-        onCloseClick={this.props.onCloseClick}
+        onCloseClick={this.closeInfoBox}
+        ref={(ref) => {this.infoBox = ref}}
       >
       <React.Fragment>
         <div
           className='park-details-container'
+          aria-modal={true}
         >
         <header>
           <h3
             className='park-name'
+            tabIndex={-1}
+            ref={(ref) => { this.onInfoBoxheaderRef(ref)}}
+            aria-labelledby='descriptionClose'
           >
             {this.props.park.title}
           </h3>
@@ -188,6 +224,7 @@ class ParkInfoBox extends Component {
                     <li>
                       <a
                         href={park.contact.website}
+                        target='_blank'
                         title={`Website of ${this.props.park.title}`}
                         alt={`Website of ${this.props.park.title}`}
                       >
@@ -199,6 +236,7 @@ class ParkInfoBox extends Component {
                     <li>
                       <a
                         href={park.contact.twitter}
+                        target='_blank'
                         title={`Twitter account of ${this.props.park.title}`}
                         alt={`Twitter account of ${this.props.park.title}`}
                       >
@@ -210,6 +248,7 @@ class ParkInfoBox extends Component {
                     <li>
                       <a
                         href={park.contact.instagram}
+                        target='_blank'
                         title={`Instagram profil of ${this.props.park.title}`}
                         alt={`Instagram profil of ${this.props.park.title}`}
                       >
@@ -221,6 +260,7 @@ class ParkInfoBox extends Component {
                     <li>
                       <a
                         href={park.contact.facebook}
+                        target='_blank'
                         title={`Facebook profil of ${this.props.park.title}`}
                         alt={`Facebook profil of ${this.props.park.title}`}
                       >
@@ -270,6 +310,7 @@ class ParkInfoBox extends Component {
                 </a>
               </React.Fragment>
             }
+            <p id="descriptionClose">{`Information about ${this.props.park.title} amusement park. Close this infobox by pressing escape button.`}</p>
           </div>
         </div>
         </React.Fragment>

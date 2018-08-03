@@ -66,6 +66,12 @@ class ParksFilter extends Component {
     this.filterParksDebounced.cancel()
   }
 
+  componentDidUpdate = (prevProps) => {
+    if (this.props.isPanelVisibleOnMobile && !prevProps.isPanelVisibleOnMobile) {
+      this.filterInput.focus();
+    }
+  }
+
   render() {
     return (
       <div className='filter-parks'>
@@ -79,7 +85,7 @@ class ParksFilter extends Component {
           aria-label='filter the amusement parks'
           value={this.state.query}
           onChange={this.filterParksInputHandler}
-        //  ref={input => input && input.focus()}
+          ref={(ref) => {this.filterInput = ref}}
         />
         <button
           className='filter-reset'
@@ -96,6 +102,7 @@ class ParksFilter extends Component {
 const mapStateToProps =  (state) => ({
   activePark: state.activePark,
   visibleParks: state.visibleParks,
+  isPanelVisibleOnMobile: state.isPanelVisibleOnMobile,
 });
 
 const mapDispatchToProps = (dispatch) => ({

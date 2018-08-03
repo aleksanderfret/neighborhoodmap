@@ -395,3 +395,7 @@ a.source-link:visited {
 a.source-link:hover {
   color: #000;
 }
+
+#descriptionClose {
+  display: none;
+}
