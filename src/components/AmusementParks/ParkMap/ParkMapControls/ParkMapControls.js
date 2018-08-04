@@ -3,6 +3,8 @@ import { createPortal } from 'react-dom';
 import { MAP } from 'react-google-maps/lib/constants';
 import PropTypes from 'prop-types';
 
+// This solution to place icons on map is taken from:
+// https://gist.github.com/jgimbel/6a36d60e28aaf453d0093ddc47f36533
  class ParkMapControls extends Component {
 
   static contextTypes = { [MAP]: PropTypes.object }
