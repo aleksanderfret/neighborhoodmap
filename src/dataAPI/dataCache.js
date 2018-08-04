@@ -8415,10 +8415,10 @@ export const dataMockup = [
       }
     }
   },
-  {nowy: ''},
-  {nowy: ''},
-  {nowy: ''},
-  {nowy: ''},
+  { nowy: '' },
+  { nowy: '' },
+  { nowy: '' },
+  { nowy: '' },
   {
     "id": "4c3be0624bc9a593d804d271",
     "name": "LEGOLAND Malaysia",

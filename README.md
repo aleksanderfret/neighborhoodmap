@@ -1,4 +1,4 @@
-# Naeighborhood Map (React)
+# Neighborhood Map (React)
 Neighborhood Map - React (Amusement Parks) was created as a project within the Google Scholarship Programm.
 
 ## Version

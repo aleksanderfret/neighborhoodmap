@@ -2,10 +2,10 @@ const initialState = {
   activePark: null,
   visibleParks: [],
   isPanelVisibleOnMobile: false,
-}
+};
 
 const reducer = (state = initialState, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case 'SET_ACTIVE_PARK':
       return {
         ...state,
@@ -15,7 +15,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         visibleParks: action.visibleParks,
-    }
+      }
     case 'TOGGLE_SIDE_PANEL':
       return {
         ...state,
@@ -24,6 +24,6 @@ const reducer = (state = initialState, action) => {
     default:
       return state;
   }
-}
+};
 
 export default reducer;

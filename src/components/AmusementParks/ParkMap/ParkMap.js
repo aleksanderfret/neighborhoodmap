@@ -9,8 +9,8 @@ class CustomGoogleMap extends Component {
   state={
     infoBoxAlignBottom: true,
     offset: -60,
+  };
 
-  }
   isMapReady = false;
 
   markerImage = {

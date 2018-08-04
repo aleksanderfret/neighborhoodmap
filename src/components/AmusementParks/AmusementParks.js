@@ -4,16 +4,16 @@ import Panel from './Panel/Panel';
 import ParkMap from './ParkMap/ParkMap';
 
 class AmusementParks extends Component {
-  state={
+  state = {
     expanded: false,
-  }
+  };
 
   windowResizeHandler = () => {
-    if(window.innerWidth >= 800 && this.props.isPanelVisibleOnMobile) {
+    if (window.innerWidth >= 800 && this.props.isPanelVisibleOnMobile) {
       this.props.toggleSidePanel();
-      this.setState(() => ({expanded: false}));
+      this.setState(() => ({ expanded: false }));
     }
-  }
+  };
 
   componentDidMount() {
     this.windowResizeHandler();
@@ -28,21 +28,21 @@ class AmusementParks extends Component {
     if (event.keyCode === 13 || event.keyCode === 32) {
       this.toggleSidePanel();
     }
-  }
+  };
 
   onMenuButtonClick = () => {
     this.toggleSidePanel();
-  }
+  };
 
   toggleSidePanel = () => {
     this.props.toggleSidePanel();
     this.setState((prevState) => (
-      {expanded: !prevState.expanded}
+      { expanded: !prevState.expanded }
     ));
-  }
+  };
 
   render() {
-    return(
+    return (
       <React.Fragment>
         <header className='header'>
           <button
@@ -61,7 +61,7 @@ class AmusementParks extends Component {
         <main>
           <Panel
             onOpen={this.metoda}
-            />
+          />
           <div
             id="map"
             className='map'
@@ -81,12 +81,12 @@ class AmusementParks extends Component {
   }
 }
 
-const mapStateToProps =  (state) => ({
+const mapStateToProps = (state) => ({
   isPanelVisibleOnMobile: state.isPanelVisibleOnMobile,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  toggleSidePanel: () => {dispatch({type: 'TOGGLE_SIDE_PANEL'})}
+  toggleSidePanel: () => { dispatch({ type: 'TOGGLE_SIDE_PANEL' }) }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AmusementParks);

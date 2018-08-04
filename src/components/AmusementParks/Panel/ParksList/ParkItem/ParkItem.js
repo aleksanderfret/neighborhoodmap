@@ -5,7 +5,7 @@ const ParkItem = (props) => {
     <button
       onClick={() => {
         props.setActivePark(props.park);
-        if(props.isPanelVisible){
+        if (props.isPanelVisible) {
           props.toggleSidePanel();
         }
       }}

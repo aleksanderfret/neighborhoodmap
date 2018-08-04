@@ -6,10 +6,10 @@ import ParksFilter from './ParksFilter/ParksFilter';
 class Panel extends Component {
 
   onPressEscape = (event) => {
-    if(this.props.isPanelVisibleOnMobile && event.keyCode === 27){
+    if (this.props.isPanelVisibleOnMobile && event.keyCode === 27) {
       this.props.toggleSidePanel();
     }
-  }
+  };
 
   componentDidMount() {
     document.addEventListener('keydown', this.onPressEscape);
@@ -19,26 +19,26 @@ class Panel extends Component {
     document.removeEventListener('keydown', this.onPressEscape);
   }
 
-  render(){
+  render() {
     return (
       <div
         id='panel'
         className={'panel ' + (this.props.isPanelVisibleOnMobile ? 'open' : '')}
       >
         <h2>Amusemet parks list</h2>
-        <ParksFilter/>
-        <ParksList/>
+        <ParksFilter />
+        <ParksList />
       </div>
     );
   }
 }
 
-const mapStateToProps =  (state) => ({
+const mapStateToProps = (state) => ({
   isPanelVisibleOnMobile: state.isPanelVisibleOnMobile,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  toggleSidePanel: () => {dispatch({type: 'TOGGLE_SIDE_PANEL'})}
+  toggleSidePanel: () => { dispatch({ type: 'TOGGLE_SIDE_PANEL' }) }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Panel);
