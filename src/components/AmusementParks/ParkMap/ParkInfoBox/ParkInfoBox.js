@@ -142,6 +142,7 @@ class ParkInfoBox extends Component {
 
   closeInfoBox = () => {
     this.props.onCloseClick();
+    this.props.adjustMapToPark();
     if (this.focusedBefore) {
       this.focusedBefore.focus();
     }

@@ -25,14 +25,15 @@ class CustomGoogleMap extends Component {
     this.map = ref;
   });
 
-  adjustMapToActivePark = () => {
+  adjustMapToPark = (parkToCenter) => {
+    const distance = 0.001;
+    const distanceNorth = (this.props.activePark) ? 0.01 : distance;
     this.setInfoBoxAlignemt(true);
-    const park = this.props.activePark;
     const bounds = {
-      south: park.position.lat-0.001,
-      west: park.position.lng-0.001,
-      north: park.position.lat+0.01,
-      east: park.position.lng+0.001
+      south: parkToCenter.position.lat-distance,
+      west: parkToCenter.position.lng-distance,
+      north: parkToCenter.position.lat+distanceNorth,
+      east: parkToCenter.position.lng+distance
     }
     this.map.fitBounds(bounds);
   };
@@ -70,7 +71,7 @@ class CustomGoogleMap extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.activePark && this.props.activePark !== prevProps.activePark) {
-      this.adjustMapToActivePark();
+      this.adjustMapToPark(this.props.activePark);
     }
   }
 
@@ -107,6 +108,7 @@ class CustomGoogleMap extends Component {
                   <ParkInfoBox
                     alignBottom={this.state.infoBoxAlignBottom}
                     setAlignmentOnClose={() => {this.setInfoBoxAlignemt(true)}}
+                    adjustMapToPark={() => {this.adjustMapToPark(park)}}
                     onCloseClick={() => {this.props.setActivePark(null)}}
                     title={park.title}
                     park={park}
@@ -130,7 +132,7 @@ class CustomGoogleMap extends Component {
             </button>
             <button
               type='button'
-              onClick={()=>{this.adjustMapToActivePark(this.props.activePark)}}
+              onClick={()=>{this.adjustMapToPark(this.props.activePark)}}
               disabled={!this.props.activePark}
             >
               <img src='assets/icons/zoom-to-active-park.svg' alt='Zoom to active park' title='Zoom to active park'/>
