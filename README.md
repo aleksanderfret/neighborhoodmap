@@ -7,16 +7,16 @@ Neighborhood Map - React (Amusement Parks) was created as a project within the G
 ## Install & test
 To get started developing right away:
 
-* clone or download MyReads repository
+* clone or download Neighborhood Map repository
 * install all project dependencies with `npm install`
 * start the development server with `npm start`
-* to test serviceWorker functionality execute `npm run build` and run builded app.
-* My Google Maps API key is restricted to my own domain [Amusement Parks](http://www.amusementparks.fret.com.pl). To watch and test this app visit [Amusement Parks](http://www.amusementparks.fret.com.pl) or enter your own  Google Maps API key.
+* to test serviceWorker functionality execute `npm run build` and run builded app
+* My Google Maps API key is restricted to my own domain [Amusement Parks](http://www.amusementparks.fret.com.pl). To watch and test this app visit [Amusement Parks](http://www.amusementparks.fret.com.pl) or enter your own  Google Maps API key
 
 ## Technologies
 React, JavaScript, CSS, HTML.
 
-## Dependecies
+## Additional dependencies (not included in create-react-app)
 * [redux](https://redux.js.org/)
 * [react-redux](https://github.com/reduxjs/react-redux)
 * [google-react-maps](https://github.com/tomchentw/react-google-maps)
