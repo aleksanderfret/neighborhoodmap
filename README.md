@@ -31,10 +31,6 @@ Project was created with [create-react-app](https://github.com/facebook/create-r
 * [Google Maps](https://cloud.google.com/maps-platform/)
 * [Foursquare](https://developer.foursquare.com/)
 
-## TODO
-* comments
-* APIS errors
-
 ## Contribution
 This project (frontend-nanodegree-myreads) was #madewithudacity and #googleudacityscholars. Thank you.
 

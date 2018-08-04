@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import escapeRegExp from 'escape-string-regexp';
 import debounce from 'lodash.debounce';
-import parksData from '../../../../parkData/parkData';
+import baseParkData from '../../../../parkData/parkData';
 
 class ParksFilter extends Component {
   state = {
     query: ''
   };
 
-  parks = parksData;
+  parks = baseParkData;
 
   componentDidMount = () => {
     this.props.setVisibleParks(this.parks);
@@ -26,17 +26,20 @@ class ParksFilter extends Component {
     this.props.setVisibleParks(visibleParks);
 
     if (this.props.activePark) {
-      const activeParkFounded = visibleParks.find((park) => {
+      // check if activePark is among visibleParks
+      const activeParkFound = visibleParks.find((park) => {
         return park.id === this.props.activePark.id;
       });
-      if (!activeParkFounded) {
+      if (!activeParkFound) {
         this.props.setActivePark(null);
       }
     }
   };
 
+  // delayed filterParks function - filtering will be invoke
+  // only after 0.5s from last user input (better performance
+  // and UX)
   filterParksDebounced = debounce(this.filterParks, 500);
-
 
   filterParksInputHandler = (event) => {
     const newQuery = event.target.value;
@@ -74,7 +77,7 @@ class ParksFilter extends Component {
           aria-label='filter the amusement parks'
           value={this.state.query}
           onChange={this.filterParksInputHandler}
-          ref={(ref) => { this.filterInput = ref }}
+          ref={(ref) => { this.filterInput = ref }} // to set focus when side panel become visible
         />
         <button
           className='filter-reset'

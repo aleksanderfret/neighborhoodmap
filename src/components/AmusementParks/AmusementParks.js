@@ -4,14 +4,10 @@ import Panel from './Panel/Panel';
 import ParkMap from './ParkMap/ParkMap';
 
 class AmusementParks extends Component {
-  state = {
-    expanded: false,
-  };
 
   windowResizeHandler = () => {
     if (window.innerWidth >= 800 && this.props.isPanelVisibleOnMobile) {
-      this.props.toggleSidePanel();
-      this.setState(() => ({ expanded: false }));
+      this.toggleSidePanel();
     }
   };
 
@@ -36,9 +32,6 @@ class AmusementParks extends Component {
 
   toggleSidePanel = () => {
     this.props.toggleSidePanel();
-    this.setState((prevState) => (
-      { expanded: !prevState.expanded }
-    ));
   };
 
   render() {
@@ -52,7 +45,7 @@ class AmusementParks extends Component {
             aria-haspopup="true"
             aria-controls="panel"
             aria-label='menu'
-            aria-expanded={this.state.expanded}
+            aria-expanded={this.props.isPanelVisibleOnMobile}
           >
             <i className="fas fa-bars"></i>
           </button>

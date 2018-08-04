@@ -6,20 +6,21 @@ import ParkInfoBox from './ParkInfoBox/ParkInfoBox';
 import ParkMapControls from './ParkMapControls/ParkMapControls';
 
 class CustomGoogleMap extends Component {
-  state={
+  state = {
     infoBoxAlignBottom: true,
-    offset: -60,
+    offset: -60, // offset for infoBox in order to not to cover map marker
     allParkVisible: true,
   };
 
   isMapReady = false;
 
+  // marker appearance settings
   markerImage = {
     url: `http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|0891d1|40|_|%E2%80%A2`,
     size: new window.google.maps.Size(21, 34),
     origin: new window.google.maps.Point(0, 0),
     anchor: new window.google.maps.Point(10, 34),
-    scaledSize: new window.google.maps.Size(21,34)
+    scaledSize: new window.google.maps.Size(21, 34)
   };
 
   mapMounted = ((ref) => {
@@ -31,30 +32,33 @@ class CustomGoogleMap extends Component {
     const distance = 0.001;
     const distanceNorth = (this.props.activePark) ? 0.01 : distance;
     this.setInfoBoxAlignemt(true);
+    // new bounds for map in order to zoom to park
     const bounds = {
-      south: parkToCenter.position.lat-distance,
-      west: parkToCenter.position.lng-distance,
-      north: parkToCenter.position.lat+distanceNorth,
-      east: parkToCenter.position.lng+distance
+      south: parkToCenter.position.lat - distance,
+      west: parkToCenter.position.lng - distance,
+      north: parkToCenter.position.lat + distanceNorth,
+      east: parkToCenter.position.lng + distance
     }
     this.map.fitBounds(bounds);
 
-    this.setState({allParkVisible: false});
+    this.setState({ allParkVisible: false });
   };
 
   adjustMapToParks = () => {
+    // new bounds for map in order to show all parks
     const bounds = new window.google.maps.LatLngBounds();
     this.props.visibleParks.forEach((park) => {
       bounds.extend(park.position);
     });
     this.map.fitBounds(bounds);
 
+    // adjusts infoBox position
     const activePark = this.props.activePark;
     if (activePark) {
       const infoBoxAlignBottom = (activePark.position.lat > this.mapCenter.lat) ? false : true;
       this.setInfoBoxAlignemt(infoBoxAlignBottom);
     }
-    this.setState({allParkVisible: true});
+    this.setState({ allParkVisible: true });
   };
 
   setInfoBoxAlignemt = (infoBoxAlignBottom) => {
@@ -64,6 +68,7 @@ class CustomGoogleMap extends Component {
     });
   };
 
+  // does sam setups when map is loaded for the first time
   onTilesLoaded = () => {
     if (this.isMapReady) return;
     this.adjustMapToParks();
@@ -75,6 +80,7 @@ class CustomGoogleMap extends Component {
   };
 
   componentDidUpdate(prevProps) {
+    // adjust map when activePark changed
     if (this.props.activePark && this.props.activePark !== prevProps.activePark) {
       this.adjustMapToPark(this.props.activePark);
     }
@@ -86,14 +92,14 @@ class CustomGoogleMap extends Component {
         <GoogleMap
           ref={this.mapMounted}
           defaultZoom={12}
-          defaultCenter={{lat: 0, lng: 10}}
+          defaultCenter={{ lat: 0, lng: 10 }}
           onTilesLoaded={this.onTilesLoaded}
           defaultOptions={{
             gestureHandling: 'greedy',
             mapTypeControl: false,
           }}
         >
-          { this.props.visibleParks.length > 0 &&
+          {this.props.visibleParks.length > 0 &&
             <MarkerClusterer
               averageCenter
               enableRetinaIcons
@@ -107,61 +113,61 @@ class CustomGoogleMap extends Component {
                   position={park.position}
                   icon={this.markerImage}
                   animation={this.props.activePark === park ? window.google.maps.Animation.BOUNCE : null}
-                  onClick={() => {this.props.setActivePark(park);
-
+                  onClick={() => {
+                    this.props.setActivePark(park);
                   }}
                 >
                   {this.props.activePark === park &&
-                  <ParkInfoBox
-                    alignBottom={this.state.infoBoxAlignBottom}
-                    setAlignmentOnClose={() => {this.setInfoBoxAlignemt(true)}}
-                    adjustMapToPark={() => {
-                      const parkParam = (this.state.allParkVisible) ? null : park;
-                      this.adjustMapToPark(parkParam);
-                    }}
-                    onCloseClick={() => {this.props.setActivePark(null)}}
-                    title={park.title}
-                    park={park}
-                    offset={this.state.offset}
-                  />
+                    <ParkInfoBox
+                      alignBottom={this.state.infoBoxAlignBottom}
+                      setAlignmentOnClose={() => { this.setInfoBoxAlignemt(true) }}
+                      adjustMapToPark={() => {
+                        const parkParam = (this.state.allParkVisible) ? null : park;
+                        this.adjustMapToPark(parkParam);
+                      }}
+                      onCloseClick={() => { this.props.setActivePark(null) }}
+                      title={park.title}
+                      park={park}
+                      offset={this.state.offset}
+                    />
                   }
                 </Marker>
               )}
             </MarkerClusterer>
           }
-        <ParkMapControls
-          position={window.google.maps.ControlPosition.TOP_LEFT}
-        >
-          <div className='map-controls'>
-            <button
-              type='button'
-              onClick={()=>{this.adjustMapToParks(this.props.visibleParks)}}
-              disabled={!this.props.visibleParks.length}
-            >
-              <img src='assets/icons/zoom-to-all-parks.svg' alt='Zoom to all parks' title='Zoom to all parks'/>
-            </button>
-            <button
-              type='button'
-              onClick={()=>{this.adjustMapToPark(this.props.activePark)}}
-              disabled={!this.props.activePark}
-            >
-              <img src='assets/icons/zoom-to-active-park.svg' alt='Zoom to active park' title='Zoom to active park'/>
-            </button>
-          </div>
-        </ParkMapControls>
+          <ParkMapControls
+            position={window.google.maps.ControlPosition.TOP_LEFT}
+          >
+            <div className='map-controls'>
+              <button
+                type='button'
+                onClick={() => { this.adjustMapToParks(this.props.visibleParks) }}
+                disabled={!this.props.visibleParks.length}
+              >
+                <img src='assets/icons/zoom-to-all-parks.svg' alt='Zoom to all parks' title='Zoom to all parks' />
+              </button>
+              <button
+                type='button'
+                onClick={() => { this.adjustMapToPark(this.props.activePark) }}
+                disabled={!this.props.activePark}
+              >
+                <img src='assets/icons/zoom-to-active-park.svg' alt='Zoom to active park' title='Zoom to active park' />
+              </button>
+            </div>
+          </ParkMapControls>
         </GoogleMap>
       </React.Fragment>
     )
   }
 }
 
-const mapStateToProps =  (state) => ({
+const mapStateToProps = (state) => ({
   activePark: state.activePark,
   visibleParks: state.visibleParks,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setActivePark: (activePark) => {dispatch({type: 'SET_ACTIVE_PARK', activePark: activePark})},
+  setActivePark: (activePark) => { dispatch({ type: 'SET_ACTIVE_PARK', activePark: activePark }) },
 });
 
 const ParkMap = withScriptjs(withGoogleMap(connect(mapStateToProps, mapDispatchToProps)(CustomGoogleMap)));

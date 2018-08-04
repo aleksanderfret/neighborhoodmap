@@ -10,7 +10,6 @@ class ParkInfoBox extends Component {
 
   state = {
     parkData: null,
-    isInfoBoxRendered: false
   };
 
   componentDidMount = () => {
@@ -36,6 +35,8 @@ class ParkInfoBox extends Component {
     return undefined;
   };
 
+  // hours from API differs much from format needed for the app,
+  // so here are adequate transformations
   prepareParkHours = (timeframes) => {
     if (!timeframes) return undefined;
     const week = { Mon: '', Tue: '', Wed: '', Thu: '', Fri: '', Sat: '', Sun: '' };
@@ -64,6 +65,8 @@ class ParkInfoBox extends Component {
 
   prepareHoursFromDaysRange = (week, day, hours) => {
     let weekDays = Object.keys(week);
+    // this is helper array that let us handle cases
+    // when end of range exceeds Sunday
     weekDays = [...weekDays, ...weekDays];
 
     const daysRange = day.split('–');
@@ -157,7 +160,7 @@ class ParkInfoBox extends Component {
         onCloseClick={this.closeInfoBox}
       >
         <React.Fragment>
-          <FocusLock
+          <FocusLock>
             returnFocus
           >
             <div

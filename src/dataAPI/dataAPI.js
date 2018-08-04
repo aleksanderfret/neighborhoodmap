@@ -1,5 +1,3 @@
-import { dataMockup } from './dataCache';
-
 const api = {
   foursquare: {
     clientId: 'LMHT2TASHWL5RRAUWHBTIOMB2NE51NNQARPY2VLZ2B1L54HD',
