@@ -1,22 +1,26 @@
 # Neighborhood Map (React)
 Neighborhood Map - React (Amusement Parks) was created as a project within the Google Scholarship Programm.
+See it in the web [Amusement Parks](http://www.amusementparks.fret.com.pl).
 
 ## Version
 1.0.0. - 2018.08.04
 
-## Install & test
-To get started developing right away:
+## Technologies
+React, Redux, JavaScript, CSS, HTML.
 
-* clone or download Neighborhood Map repository
+## Install, run, build
+To get started developing right away:
+* clone or download neighborhoodmap repository
 * install all project dependencies with `npm install`
 * start the development server with `npm start`
-* to test serviceWorker functionality execute `npm run build` and run builded app
-* My Google Maps API key is restricted to my own domain [Amusement Parks](http://www.amusementparks.fret.com.pl). To watch and test this app visit [Amusement Parks](http://www.amusementparks.fret.com.pl) or enter your own  Google Maps API key
+* to build application run `npm run build`
 
-## Technologies
-React, JavaScript, CSS, HTML.
+## Important notices
+* My Google Maps API key is restricted to my own domain [Amusement Parks](http://www.amusementparks.fret.com.pl). So if you want to run application locally, you need to put your own Google Maps API key [here](https://github.com/alemikolo/neighborhoodmap/blob/master/src/components/AmusementParks/AmusementParks.js#L72).
+* ServiceWorkers run only with https or on localhost. Because this site uses http, you can test serviceworker on localhost only. Keep in mind, that in this case you won't see Google Map, until you provide your own API key (look at the notice above).
 
-## Additional dependencies (not included in create-react-app)
+## Additional technical information
+Project was created with [create-react-app](https://github.com/facebook/create-react-app). Following dependencies were added:
 * [redux](https://redux.js.org/)
 * [react-redux](https://github.com/reduxjs/react-redux)
 * [google-react-maps](https://github.com/tomchentw/react-google-maps)
@@ -29,8 +33,7 @@ React, JavaScript, CSS, HTML.
 
 ## TODO
 * comments
-* serviceWorker feature
-* change mockupDATA to allData delete file with this data
+* APIS errors
 
 ## Contribution
 This project (frontend-nanodegree-myreads) was #madewithudacity and #googleudacityscholars. Thank you.

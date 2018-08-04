@@ -26,8 +26,7 @@ export const getParkData = (park) => {
       return allData;
     })
     .catch(() => {
-      // TODO return allData;
-      return dataMockup[park.id - 1];
+      return allData;
     })
 }
 

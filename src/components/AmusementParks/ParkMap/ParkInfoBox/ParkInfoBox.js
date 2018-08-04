@@ -7,9 +7,6 @@ import ParkInfoBoxHeader from './ParkInfoBoxDetails/ParkInfoBoxHeader';
 import ParkInfoBoxDetails from './ParkInfoBoxDetails/ParkInfoBoxDetails';
 
 class ParkInfoBox extends Component {
-  // Simple cache mechanism because of small daily API calls limit
-  // Except of this is preserves app from proccessing the same data many times
-  static cachedParkData = [];
 
   state = {
     parkData: null,
@@ -18,22 +15,14 @@ class ParkInfoBox extends Component {
 
   componentDidMount = () => {
     document.addEventListener('keydown', this.onPressEscape);
-    const cachedData = ParkInfoBox.cachedParkData[this.props.park.id - 1];
-    if (cachedData) {
-      this.setState({
-        parkData: cachedData,
-      });
-    } else {
-      ParksAPI.getParkData(this.props.park)
-        .then((park) => {
-          //console.log(JSON.stringify(park));
-          const preparedData = this.prepareParkData(park);
-          this.setState({
-            parkData: preparedData,
-          });
-          ParkInfoBox.cachedParkData[this.props.park.id - 1] = preparedData;
+
+    ParksAPI.getParkData(this.props.park)
+      .then((park) => {
+        const preparedData = this.prepareParkData(park);
+        this.setState({
+          parkData: preparedData,
         });
-    }
+      });
   };
 
   componentWillUnmount = () => {
@@ -97,6 +86,12 @@ class ParkInfoBox extends Component {
   };
 
   prepareParkData = (park) => {
+    if (!Object.keys(park).length){
+      return {
+        errorMessage: `Unfortunately data couldn't be loaded.`
+      }
+    }
+
     const parkData = {};
     parkData.name = park.name;
     parkData.address = {
@@ -172,10 +167,19 @@ class ParkInfoBox extends Component {
               <ParkInfoBoxHeader
                 name={this.props.park.title}
               />
-              <ParkInfoBoxDetails
-                name={this.props.park.title}
-                park={this.state.parkData}
-              />
+              {this.state.parkData.errorMessage &&
+                <div
+                  className='park-data-error'
+                >
+                  {this.state.parkData.errorMessage}
+                </div>
+              }
+              {!this.state.parkData.errorMessage &&
+                <ParkInfoBoxDetails
+                  name={this.props.park.title}
+                  park={this.state.parkData}
+                />
+              }
             </div>
           </FocusLock>
         </React.Fragment>

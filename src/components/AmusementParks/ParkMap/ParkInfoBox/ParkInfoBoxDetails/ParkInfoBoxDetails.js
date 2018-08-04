@@ -39,11 +39,9 @@ const ParkInfoBoxDetails = (props) => {
           description={props.park.description}
         />
       }
-      {props.park.source &&
-        <DetailsSource
-          source={props.park.source}
-        />
-      }
+      <DetailsSource
+        source={props.park.source || 'https://foursquare.com/'}
+      />
       <p id="descriptionClose">
         {`Information about ${props.name} amusement park. Close this infobox by pressing escape button.`}
       </p>
