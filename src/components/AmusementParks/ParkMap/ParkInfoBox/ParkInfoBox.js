@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { InfoBox } from 'react-google-maps/lib/components/addons/InfoBox';
 import FocusLock from 'react-focus-lock';
-import * as ParksAPI from '../../../../dataAPI/dataAPI';
 import get from 'lodash/get';
+import * as ParksAPI from '../../../../dataAPI/dataAPI';
+import ParkInfoBoxHeader from './ParkInfoBoxDetails/ParkInfoBoxHeader';
+import ParkInfoBoxDetails from './ParkInfoBoxDetails/ParkInfoBoxDetails';
 
 class ParkInfoBox extends Component {
   // Simple cache mechanism because of small daily API calls limit
@@ -146,7 +148,7 @@ class ParkInfoBox extends Component {
     if (!this.state.parkData) {
       return null;
     }
-    const park = this.state.parkData;
+
     return (
       <InfoBox
         position={this.props.park.position}
@@ -161,145 +163,19 @@ class ParkInfoBox extends Component {
       >
         <React.Fragment>
           <FocusLock
-            returnFocus>
+            returnFocus
+          >
             <div
               className='park-details-container'
               aria-modal={true}
             >
-              <header>
-                <h3
-                  className='park-name'
-                  tabIndex={0}
-                  aria-labelledby='descriptionClose'
-                >
-                  {this.props.park.title}
-                </h3>
-              </header>
-              <div
-                id='park-details'
-                className='park-details'
-              >
-                {park.bestPhotoUrl &&
-                  <img
-                    className='park-image'
-                    src={park.bestPhotoUrl}
-                    alt={`${this.props.name} theme park`}
-                  />
-                }
-                {park.address &&
-                  <React.Fragment>
-                    <h4>Address</h4>
-                    <p className='park-addres'>
-                      {park.address.name !== park.address.street &&
-                        <React.Fragment>
-                          {park.address.name}<br />
-                        </React.Fragment>
-                      }
-                      {park.address.street}<br />
-                      {park.address.city}<br />
-                      {park.address.country}
-                    </p>
-                  </React.Fragment>
-                }
-                {park.contact &&
-                  <React.Fragment>
-                    <h4>Contact</h4>
-                    <ul className='park-contact'>
-                      {park.contact.phone &&
-                        <li className='park-phone'>{`phone: ${park.contact.phone}`}</li>
-                      }
-                      {park.contact.website &&
-                        <li>
-                          <a
-                            href={park.contact.website}
-                            target='_blank'
-                            title={`Website of ${this.props.park.title}`}
-                            alt={`Website of ${this.props.park.title}`}
-                          >
-                            <i className="fas fa-globe"></i>
-                          </a>
-                        </li>
-                      }
-                      {park.contact.twitter &&
-                        <li>
-                          <a
-                            href={park.contact.twitter}
-                            target='_blank'
-                            title={`Twitter account of ${this.props.park.title}`}
-                            alt={`Twitter account of ${this.props.park.title}`}
-                          >
-                            <i className="fab fa-twitter-square"></i>
-                          </a>
-                        </li>
-                      }
-                      {park.contact.instagram &&
-                        <li>
-                          <a
-                            href={park.contact.instagram}
-                            target='_blank'
-                            title={`Instagram profil of ${this.props.park.title}`}
-                            alt={`Instagram profil of ${this.props.park.title}`}
-                          >
-                            <i className="fab fa-instagram"></i>
-                          </a>
-                        </li>
-                      }
-                      {park.contact.facebook &&
-                        <li>
-                          <a
-                            href={park.contact.facebook}
-                            target='_blank'
-                            title={`Facebook profil of ${this.props.park.title}`}
-                            alt={`Facebook profil of ${this.props.park.title}`}
-                          >
-                            <i className="fab fa-facebook-square"></i>
-                          </a>
-                        </li>
-                      }
-                    </ul>
-                  </React.Fragment>
-                }
-                {park.hours &&
-                  <React.Fragment>
-                    <h4>Opening hours</h4>
-                    <table className='park-open-hours'>
-                      <thead>
-                        <tr>
-                          <th>Days</th>
-                          <th>Hours</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {park.hours.map((hour, index) => (
-                          <tr key={index}>
-                            <td>{hour.day}</td>
-                            <td>{hour.hours}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </React.Fragment>
-                }
-                {park.description &&
-                  <React.Fragment>
-                    <h4>Description</h4>
-                    <p className='park-description'>{park.description}</p>
-                  </React.Fragment>
-                }
-                {park.source &&
-                  <React.Fragment>
-                    <h4>Data source</h4>
-                    <a
-                      className='source-link'
-                      href={park.source}
-                      target="_blank"
-                    >
-                      Foursquare
-                </a>
-                  </React.Fragment>
-                }
-                <p id="descriptionClose">{`Information about ${this.props.park.title} amusement park. Close this infobox by pressing escape button.`}</p>
-              </div>
+              <ParkInfoBoxHeader
+                name={this.props.park.title}
+              />
+              <ParkInfoBoxDetails
+                name={this.props.park.title}
+                park={this.state.parkData}
+              />
             </div>
           </FocusLock>
         </React.Fragment>
