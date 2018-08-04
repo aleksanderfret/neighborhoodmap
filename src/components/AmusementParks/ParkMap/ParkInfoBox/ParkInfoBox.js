@@ -160,7 +160,7 @@ class ParkInfoBox extends Component {
         onCloseClick={this.closeInfoBox}
       >
         <React.Fragment>
-          <FocusLock>
+          <FocusLock
             returnFocus
           >
             <div

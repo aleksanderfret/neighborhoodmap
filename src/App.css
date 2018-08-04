@@ -267,12 +267,12 @@ body * {
 
 .info-box {
   box-sizing: border-box;
-  width: 280px;
+  width: 320px;
   padding: 20px 20px 0 0;
 }
 
 .park-details-container {
-  width: 260px;
+  width: 300px;
   border: 2px solid #006391;
   background-color: #006391;
   border-radius: 10px;
@@ -304,8 +304,8 @@ body * {
 .park-details {
   background-color: #fff;
   box-sizing: border-box;
-  width: 260px;
-  max-height: 350px;
+  width: 300px;
+  max-height: 300px;
   padding: 10px;
   border-radius: 0 0 10px 10px;
   overflow-y: auto;
@@ -323,27 +323,14 @@ body * {
 }
 
 @media screen and (min-width: 800px) {
-  .info-box {
-    width: 320px;
-  }
-
-  .park-details-container {
-    width: 300px;
-  }
-
-  .park-details-container header {
-    width: 300px;
-  }
-
-  .park-details {
-    width: 300px;
+   .park-details {
     max-height: 350px;
   }
 }
 
 @media screen and (min-width: 1000px) {
   .park-details {
-    max-height: 450px;
+    max-height: 400px;
   }
 }
 
