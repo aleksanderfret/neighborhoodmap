@@ -21,6 +21,7 @@ React, JavaScript, CSS, HTML.
 * [react-redux](https://github.com/reduxjs/react-redux)
 * [google-react-maps](https://github.com/tomchentw/react-google-maps)
 * [escape-string-regexp](https://www.npmjs.com/package/escape-string-regexp)
+* [react-focus-lock](https://github.com/theKashey/react-focus-lock)
 
 ## APIs
 * [Google Maps](https://cloud.google.com/maps-platform/)

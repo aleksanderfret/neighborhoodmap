@@ -102,7 +102,9 @@ class CustomGoogleMap extends Component {
                   position={park.position}
                   icon={this.markerImage}
                   animation={this.props.activePark === park ? window.google.maps.Animation.BOUNCE : null}
-                  onClick={() => {this.props.setActivePark(park)}}
+                  onClick={() => {this.props.setActivePark(park);
+
+                  }}
                 >
                   {this.props.activePark === park &&
                   <ParkInfoBox

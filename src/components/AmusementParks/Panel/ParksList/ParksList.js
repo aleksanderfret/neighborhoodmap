@@ -34,7 +34,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   setActivePark: (activePark) => { dispatch({ type: 'SET_ACTIVE_PARK', activePark: activePark }) },
-  toggleSidePanel: () => { dispatch({ type: 'TOGGLE_SIDE_PANEL' }) }
+  toggleSidePanel: () => { dispatch({ type: 'TOGGLE_SIDE_PANEL' }) },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ParksList);
