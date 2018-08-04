@@ -9,6 +9,7 @@ class CustomGoogleMap extends Component {
   state={
     infoBoxAlignBottom: true,
     offset: -60,
+    allParkVisible: true,
   };
 
   isMapReady = false;
@@ -26,6 +27,7 @@ class CustomGoogleMap extends Component {
   });
 
   adjustMapToPark = (parkToCenter) => {
+    if (this.state.allParkVisible && !parkToCenter) return;
     const distance = 0.001;
     const distanceNorth = (this.props.activePark) ? 0.01 : distance;
     this.setInfoBoxAlignemt(true);
@@ -36,6 +38,8 @@ class CustomGoogleMap extends Component {
       east: parkToCenter.position.lng+distance
     }
     this.map.fitBounds(bounds);
+
+    this.setState({allParkVisible: false});
   };
 
   adjustMapToParks = () => {
@@ -50,6 +54,7 @@ class CustomGoogleMap extends Component {
       const infoBoxAlignBottom = (activePark.position.lat > this.mapCenter.lat) ? false : true;
       this.setInfoBoxAlignemt(infoBoxAlignBottom);
     }
+    this.setState({allParkVisible: true});
   };
 
   setInfoBoxAlignemt = (infoBoxAlignBottom) => {
@@ -110,7 +115,10 @@ class CustomGoogleMap extends Component {
                   <ParkInfoBox
                     alignBottom={this.state.infoBoxAlignBottom}
                     setAlignmentOnClose={() => {this.setInfoBoxAlignemt(true)}}
-                    adjustMapToPark={() => {this.adjustMapToPark(park)}}
+                    adjustMapToPark={() => {
+                      const parkParam = (this.state.allParkVisible) ? null : park;
+                      this.adjustMapToPark(parkParam);
+                    }}
                     onCloseClick={() => {this.props.setActivePark(null)}}
                     title={park.title}
                     park={park}
