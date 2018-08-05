@@ -14,7 +14,6 @@ class ParkItem extends Component {
       <button
         onClick={this.onButtonClick}
         className={'park-button ' + (this.props.park === this.props.activePark ? 'active' : '')}
-        role='menuitem'
       >{this.props.park.title}
       </button>
     );
