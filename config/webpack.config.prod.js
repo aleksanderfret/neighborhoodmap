@@ -334,8 +334,9 @@ module.exports = {
           }
         },
         {
+          // setting cachefirst is because of small avaiable number of calls from foursquare
           urlPattern: /^https:\/\/api\.foursquare\.com/,
-          handler: 'networkFirst',
+          handler: 'cacheFirst',
         },
         {
           urlPattern: /^https:\/\/maps\.googleapis\.com\/maps\/api\/js(?!\/ViewportInfoService)/,
