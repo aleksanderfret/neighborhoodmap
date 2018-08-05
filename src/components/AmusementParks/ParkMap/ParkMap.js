@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
+import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 import { MarkerClusterer } from 'react-google-maps/lib/components/addons/MarkerClusterer';
 import ParkInfoBox from './ParkInfoBox/ParkInfoBox';
 import ParkMapControls from './ParkMapControls/ParkMapControls';
@@ -170,6 +170,6 @@ const mapDispatchToProps = (dispatch) => ({
   setActivePark: (activePark) => { dispatch({ type: 'SET_ACTIVE_PARK', activePark: activePark }) },
 });
 
-const ParkMap = withScriptjs(withGoogleMap(connect(mapStateToProps, mapDispatchToProps)(CustomGoogleMap)));
+const ParkMap = withGoogleMap(connect(mapStateToProps, mapDispatchToProps)(CustomGoogleMap));
 
 export default ParkMap;

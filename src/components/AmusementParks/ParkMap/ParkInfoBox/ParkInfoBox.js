@@ -89,7 +89,7 @@ class ParkInfoBox extends Component {
   };
 
   prepareParkData = (park) => {
-    if (!Object.keys(park).length){
+    if (!Object.keys(park).length) {
       return {
         errorMessage: `Unfortunately data couldn't be loaded.`
       }
@@ -170,14 +170,14 @@ class ParkInfoBox extends Component {
               <ParkInfoBoxHeader
                 name={this.props.park.title}
               />
-              {!this.state.parkData.errorMessage &&
+              {this.state.parkData.errorMessage &&
                 <div
                   className='park-details park-data-error'
                 >
-                  {this.state.parkData.errorMessage}nie można
+                  {this.state.parkData.errorMessage}
                 </div>
               }
-              {this.state.parkData.errorMessage &&
+              {!this.state.parkData.errorMessage &&
                 <ParkInfoBoxDetails
                   name={this.props.park.title}
                   park={this.state.parkData}

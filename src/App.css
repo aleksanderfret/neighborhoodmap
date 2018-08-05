@@ -230,6 +230,23 @@ body * {
   height: calc(100vh - 50px);
 }
 
+.map-error {
+  box-sizing: border-box;
+  height: calc(100vh - 50px);
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.map-error p {
+  color: #006391;
+  font-size: 1.75rem;
+  line-height: 2.25rem;
+  text-align: center;
+}
+
 .map-controls {
   display: flex;
   flex-direction: column;

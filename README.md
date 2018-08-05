@@ -3,7 +3,7 @@ Neighborhood Map - React (Amusement Parks) was created as a project within the G
 See it in the web [Amusement Parks](http://www.amusementparks.fret.com.pl).
 
 ## Version
-1.0.0. - 2018.08.04
+1.0.1. - 2018.08.05
 
 ## Technologies
 React, Redux, JavaScript, CSS, HTML.
@@ -26,6 +26,7 @@ Project was created with [create-react-app](https://github.com/facebook/create-r
 * [google-react-maps](https://github.com/tomchentw/react-google-maps)
 * [escape-string-regexp](https://www.npmjs.com/package/escape-string-regexp)
 * [react-focus-lock](https://github.com/theKashey/react-focus-lock)
+* [react-async-script-loader](https://github.com/leozdgao/react-async-script-loader)
 
 ## APIs
 * [Google Maps](https://cloud.google.com/maps-platform/)
