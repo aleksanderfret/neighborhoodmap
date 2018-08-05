@@ -52,14 +52,12 @@ class AmusementParks extends Component {
           <h1>Amusement Parks</h1>
         </header>
         <main>
-          <Panel
-            onOpen={this.metoda}
-          />
+          <Panel/>
           <div
             id="map"
             className='map'
             role="application"
-            aria-label="map with amusement pars locations"
+            aria-label="map with amusement parks locations"
           >
             <ParkMap
               googleMapURL="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyDRYJI7iuE8nySIexxrjMfquYL-pPyLHW8"

@@ -8,6 +8,7 @@ const DetailsSource = (props) => {
         className='source-link'
         href={props.source}
         target="_blank"
+        aria-label='data source from Foursquare'
       >
         Foursquare
       </a>

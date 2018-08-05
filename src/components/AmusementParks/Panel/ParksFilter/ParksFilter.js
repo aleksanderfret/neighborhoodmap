@@ -60,7 +60,9 @@ class ParksFilter extends Component {
 
   componentDidUpdate = (prevProps) => {
     if (this.props.isPanelVisibleOnMobile && !prevProps.isPanelVisibleOnMobile) {
+      this.filterInput.setAttribute('tabIndex', -1);
       this.filterInput.focus();
+      this.filterInput.setAttribute('tabIndex', 0);
     }
   };
 
@@ -68,7 +70,6 @@ class ParksFilter extends Component {
     return (
       <div className='filter-parks'>
         <input
-          tabIndex={-1}
           id='filter-input'
           className='filter-input'
           placeholder='Filter parks'
